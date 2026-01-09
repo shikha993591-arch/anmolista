@@ -1,26 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Anmolista Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Anmolista • Login</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body style="font-family:sans-serif; text-align:center; padding-top:80px">
+<body class="ig-bg">
 
-  <h2>Anmolista</h2>
-  <p>Enter your username</p>
+<div class="login-card">
+  <h1 class="logo">Anmolista</h1>
 
-  <input id="username" placeholder="username" style="padding:10px; width:80%">
-  <br><br>
-  <button onclick="login()" style="padding:10px 20px">Continue</button>
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
 
-  <script>
-    function login(){
-      const u = document.getElementById("username").value.trim();
-      if(!u) return alert("Enter username");
-      localStorage.setItem("anmolista_user", u);
-      window.location.href = "chat.html";
-    }
-  </script>
+  <button onclick="login()">Log In</button>
+  <p onclick="signup()">Create new account</p>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "anmolista.firebaseapp.com",
+  projectId: "anmolista"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+window.login = () => {
+  signInWithEmailAndPassword(auth, email.value, password.value)
+    .then(() => location.href = "home.html")
+    .catch(e => alert(e.message));
+};
+
+window.signup = () => {
+  createUserWithEmailAndPassword(auth, email.value, password.value)
+    .then(() => location.href = "home.html")
+    .catch(e => alert(e.message));
+};
+</script>
 
 </body>
 </html>
