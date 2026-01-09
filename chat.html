@@ -3,15 +3,13 @@
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <link rel="stylesheet" href="style.css">
+<title>Chat</title>
 </head>
 <body>
 
 <div class="chat-header">
-  <img id="chatPhoto">
-  <div>
-    <div id="chatName"></div>
-    <small id="lastSeen"></small>
-  </div>
+  <button onclick="goHome()">←</button>
+  <span id="chatWith"></span>
 </div>
 
 <div id="messages" class="chat-area"></div>
@@ -22,8 +20,8 @@
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
