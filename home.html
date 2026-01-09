@@ -30,6 +30,7 @@ const db=firebase.firestore();
 auth.onAuthStateChanged(u=>{
   if(!u) location.href="index.html";
   db.collection("users").get().then(s=>{
+    list.innerHTML="";
     s.forEach(d=>{
       if(d.id!==u.uid){
         list.innerHTML+=
