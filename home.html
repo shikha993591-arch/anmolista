@@ -6,32 +6,43 @@
 </head>
 <body>
 
-<div class="topbar">
-  <h2>Anmolista</h2>
-</div>
+<div class="container">
 
-<div class="search-box">
-  <input type="text" id="searchUser" placeholder="Search username">
-</div>
+  <div class="topbar">Anmolista Chats</div>
 
-<div class="chat-list" id="chatList">
+  <div class="search-box">
+    <input placeholder="Search username">
+  </div>
 
-  <!-- Demo chat card -->
-  <div class="chat-card" onclick="openChat('anmol')">
-    <div class="avatar">A</div>
-    <div class="chat-info">
-      <div class="username">anmol</div>
-      <div class="lastmsg">Hyy kese ho</div>
+  <div class="chat-list">
+
+    <div class="chat-item" onclick="openChat('Anmol')">
+      <div class="avatar">A</div>
+      <div class="chat-info">
+        <h4>Anmol</h4>
+        <p>Last message preview...</p>
+      </div>
     </div>
+
+    <div class="chat-item" onclick="openChat('Rahul')">
+      <div class="avatar">R</div>
+      <div class="chat-info">
+        <h4>Rahul</h4>
+        <p>Hey! kaise ho?</p>
+      </div>
+    </div>
+
   </div>
 
 </div>
 
 <script>
-function openChat(username){
-  window.location.href = "chat.html?user=" + username;
+function openChat(name) {
+  localStorage.setItem("chatUser", name);
+  window.location.href = "chat.html";
 }
 </script>
 
 </body>
 </html>
+
