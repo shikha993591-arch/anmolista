@@ -1,0 +1,50 @@
+body { margin:0; font-family: 'Segoe UI', sans-serif; }
+
+/* Instagram login */
+.ig-bg {
+  background: linear-gradient(45deg,#fd1d1d,#833ab4,#fcb045);
+  height:100vh; display:flex; justify-content:center; align-items:center;
+}
+.login-card {
+  background:white; padding:30px; width:300px;
+  border-radius:10px; text-align:center;
+}
+.logo { font-family:cursive; font-size:32px; }
+.login-card input, button {
+  width:100%; padding:10px; margin:8px 0;
+}
+.login-card button {
+  background:#3897f0; color:white; border:none;
+}
+
+/* WhatsApp style */
+.wa-bg { background:#ece5dd; height:100vh; }
+.header, .chat-header {
+  background:#075e54; color:white;
+  padding:15px; font-size:20px;
+}
+.chat-list { padding:10px; }
+.chat-item {
+  background:white; display:flex;
+  padding:10px; border-radius:8px;
+  margin-bottom:10px;
+}
+.avatar {
+  width:45px; height:45px;
+  background:#ccc; border-radius:50%;
+  margin-right:10px;
+}
+.messages {
+  padding:10px; height:70vh; overflow:auto;
+}
+.msg {
+  padding:8px 12px; margin:5px;
+  border-radius:10px; max-width:70%;
+}
+.left { background:white; }
+.right { background:#dcf8c6; margin-left:auto; }
+
+.input-bar {
+  display:flex; padding:10px; background:white;
+}
+.input-bar input { flex:1; padding:10px; }
