@@ -1,0 +1,64 @@
+body{
+  margin:0;
+  background:#0f0f0f;
+  font-family: Arial, sans-serif;
+  color:white;
+}
+
+.topbar{
+  padding:15px;
+  background:#111;
+  font-size:20px;
+  border-bottom:1px solid #222;
+}
+
+.search-box{
+  padding:10px;
+}
+
+.search-box input{
+  width:100%;
+  padding:12px;
+  border-radius:20px;
+  border:none;
+  outline:none;
+  background:#222;
+  color:white;
+}
+
+.chat-list{
+  padding:10px;
+}
+
+.chat-card{
+  display:flex;
+  align-items:center;
+  background:#1c1c1c;
+  padding:12px;
+  border-radius:12px;
+  margin-bottom:10px;
+  cursor:pointer;
+}
+
+.avatar{
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  background:#25d366;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+  color:black;
+  margin-right:10px;
+}
+
+.chat-info .username{
+  font-size:16px;
+  font-weight:bold;
+}
+
+.chat-info .lastmsg{
+  font-size:13px;
+  color:#aaa;
+}
