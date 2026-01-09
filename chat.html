@@ -1,83 +1,175 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Anmolista Chat</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>Anmolista Chat</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<style>
+body{
+  margin:0;
+  font-family: 'Segoe UI', sans-serif;
+  background:#ece5dd;
+}
 
-  <style>
-    body{margin:0;font-family:sans-serif;background:#ece5dd}
-    header{background:#075e54;color:white;padding:12px;text-align:center}
-    #chat{padding:10px; height:70vh; overflow-y:auto}
-    .msg{max-width:70%;padding:8px 12px;margin:6px;border-radius:10px}
-    .me{background:#dcf8c6;margin-left:auto}
-    .other{background:white}
-    footer{display:flex;padding:8px;background:#f0f0f0}
-    input{flex:1;padding:10px;border-radius:20px;border:1px solid #ccc}
-    button{margin-left:5px;padding:10px 15px;border:none;background:#075e54;color:white;border-radius:50%}
-  </style>
+/* ===== HEADER ===== */
+.header{
+  background:#075e54;
+  color:white;
+  display:flex;
+  align-items:center;
+  padding:10px;
+}
+.avatar{
+  width:40px;height:40px;
+  border-radius:50%;
+  background:#bbb;
+  margin-right:10px;
+}
+.user-info b{font-size:16px;}
+.user-info small{
+  font-size:12px;
+  color:#cfe9df;
+}
+
+/* ===== CHAT AREA ===== */
+.chat-box{
+  height:70vh;
+  padding:10px;
+  overflow-y:auto;
+}
+
+/* ===== MESSAGE ===== */
+.msg{
+  max-width:75%;
+  padding:8px 12px;
+  border-radius:10px;
+  margin:6px 0;
+  font-size:14px;
+  line-height:1.4;
+  position:relative;
+}
+.left{
+  background:white;
+}
+.right{
+  background:#dcf8c6;
+  margin-left:auto;
+}
+.time{
+  font-size:10px;
+  color:#666;
+  text-align:right;
+  margin-top:4px;
+}
+
+/* ===== INPUT ===== */
+.input-area{
+  display:flex;
+  padding:10px;
+  background:white;
+}
+.input-area input{
+  flex:1;
+  padding:10px;
+  border-radius:20px;
+  border:1px solid #ccc;
+  outline:none;
+}
+.input-area button{
+  margin-left:8px;
+  background:#25d366;
+  color:white;
+  border:none;
+  padding:10px 16px;
+  border-radius:50%;
+  font-size:16px;
+}
+.typing{
+  font-size:12px;
+  color:#555;
+  margin-left:10px;
+}
+</style>
 </head>
+
 <body>
 
-<header id="head"></header>
+<!-- ===== HEADER ===== -->
+<div class="header">
+  <div class="avatar"></div>
+  <div class="user-info">
+    <b id="chatUser">anmol</b><br>
+    <small id="status">online</small>
+  </div>
+</div>
 
-<div id="chat"></div>
+<!-- ===== CHAT ===== -->
+<div class="chat-box" id="chatBox">
+  <div class="msg left">
+    Hy 👋
+    <div class="time">10:01 AM</div>
+  </div>
 
-<footer>
-  <input id="msg" placeholder="Type a message">
+  <div class="msg right">
+    Hello 😄
+    <div class="time">10:02 AM ✓✓</div>
+  </div>
+</div>
+
+<div class="typing" id="typing" style="display:none;">
+  anmol is typing...
+</div>
+
+<!-- ===== INPUT ===== -->
+<div class="input-area">
+  <input id="message" placeholder="Type a message… 😊">
   <button onclick="send()">➤</button>
-</footer>
+</div>
 
 <script>
-  // 🔥 Firebase config (tumhara)
-  const firebaseConfig = {
-    apiKey: "AIzaSyBpF3Q1ESL76ywrp2_OVOoOJiFOv322z5M",
-    authDomain: "anmolista.firebaseapp.com",
-    projectId: "anmolista"
-  };
+const chatBox = document.getElementById("chatBox");
+const typing = document.getElementById("typing");
 
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
+function timeNow(){
+  const d=new Date();
+  let h=d.getHours(), m=d.getMinutes();
+  return h+":"+(m<10?"0"+m:m);
+}
 
-  const me = localStorage.getItem("anmolista_user");
-  if(!me) location.href="index.html";
+function send(){
+  const msg = message.value.trim();
+  if(!msg) return;
 
-  const other = prompt("Chat with username:");
-  document.getElementById("head").innerText = other;
+  const div = document.createElement("div");
+  div.className="msg right";
+  div.innerHTML = `
+    ${msg}
+    <div class="time">${timeNow()} ✓</div>
+  `;
+  chatBox.appendChild(div);
+  message.value="";
+  chatBox.scrollTop=chatBox.scrollHeight;
 
-  const chatId = [me, other].sort().join("_");
+  fakeReply();
+}
 
-  db.collection("chats").doc(chatId)
-    .collection("messages")
-    .orderBy("time")
-    .onSnapshot(snap=>{
-      chat.innerHTML="";
-      snap.forEach(d=>{
-        const m=d.data();
-        const div=document.createElement("div");
-        div.className="msg "+(m.from===me?"me":"other");
-        div.innerText=m.text;
-        chat.appendChild(div);
-        chat.scrollTop=chat.scrollHeight;
-      })
-    });
+function fakeReply(){
+  typing.style.display="block";
 
-  function send(){
-    const text=msg.value.trim();
-    if(!text) return;
-    db.collection("chats").doc(chatId)
-      .collection("messages")
-      .add({
-        from:me,
-        to:other,
-        text,
-        time:firebase.firestore.FieldValue.serverTimestamp()
-      });
-    msg.value="";
-  }
+  setTimeout(()=>{
+    typing.style.display="none";
+
+    const div = document.createElement("div");
+    div.className="msg left";
+    div.innerHTML = `
+      Okay 👍
+      <div class="time">${timeNow()}</div>
+    `;
+    chatBox.appendChild(div);
+    chatBox.scrollTop=chatBox.scrollHeight;
+  },2000);
+}
 </script>
 
 </body>
