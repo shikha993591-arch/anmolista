@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Create Profile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{font-family:Arial;padding:20px}
+input,button{width:100%;padding:12px;margin:10px 0;font-size:16px}
+button{background:#25D366;color:#fff;border:none}
+</style>
+</head>
+<body>
+
+<h2>Create Username</h2>
+<input id="username" placeholder="Username">
+<button onclick="save()">Save & Continue</button>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig={
+  apiKey:"AIzaSyBpF3Q1ESL76ywrp2_OVOoOJiFOv322z5M",
+  authDomain:"anmolista.firebaseapp.com",
+  projectId:"anmolista"
+};
+firebase.initializeApp(firebaseConfig);
+
+const auth=firebase.auth();
+const db=firebase.firestore();
+
+function save(){
+  const u=auth.currentUser;
+  if(!u||!username.value) return alert("Enter username");
+  db.collection("users").doc(u.uid).set({
+    uid:u.uid,
+    username:username.value,
+    lastSeen:Date.now()
+  }).then(()=>location.href="home.html");
+}
+</script>
+
+</body>
+</html>
