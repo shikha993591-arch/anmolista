@@ -1,40 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Anmolista Login</title>
-  <style>
-    body{
-      margin:0;
-      height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      background:linear-gradient(45deg,#833ab4,#fd1d1d,#fcb045);
-      font-family:Arial;
-    }
-    .box{
-      background:#111;
-      padding:25px;
-      width:300px;
-      border-radius:10px;
-      color:white;
-      text-align:center;
-    }
-    input{
-      width:100%;
-      padding:10px;
-      margin:8px 0;
-    }
-    button{
-      width:100%;
-      padding:10px;
-      background:#2196f3;
-      border:none;
-      color:white;
-      font-size:16px;
-    }
-    a{color:#4fc3f7;cursor:pointer;}
-  </style>
+<title>Anmolista Login</title>
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(45deg,#833ab4,#fd1d1d,#fcb045);
+  font-family:Arial;
+}
+.box{
+  background:#111;
+  padding:25px;
+  width:300px;
+  border-radius:10px;
+  color:white;
+  text-align:center;
+}
+input{
+  width:100%;
+  padding:10px;
+  margin:8px 0;
+}
+button{
+  width:100%;
+  padding:10px;
+  background:#2196f3;
+  border:none;
+  color:white;
+  font-size:16px;
+}
+a{color:#4fc3f7;cursor:pointer;}
+</style>
 </head>
 <body>
 
@@ -47,7 +47,6 @@
   <a onclick="signup()">Create new account</a>
 </div>
 
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
@@ -59,29 +58,25 @@ const firebaseConfig = {
   projectId: "anmolista"
 };
 firebase.initializeApp(firebaseConfig);
+
 const auth = firebase.auth();
 const db = firebase.firestore();
 
 function login(){
-  auth.signInWithEmailAndPassword(
-    email.value,
-    password.value
-  ).then(()=>{
-    location.href="home.html";
-  }).catch(e=>alert(e.message));
+  auth.signInWithEmailAndPassword(email.value, password.value)
+  .then(()=>location.href="home.html")
+  .catch(e=>alert(e.message));
 }
 
 function signup(){
-  auth.createUserWithEmailAndPassword(
-    email.value,
-    password.value
-  ).then(()=>{
+  auth.createUserWithEmailAndPassword(email.value, password.value)
+  .then(()=>{
     db.collection("users").doc(auth.currentUser.uid).set({
-      email: email.value,
-      lastSeen: new Date()
+      email: email.value
     });
     location.href="home.html";
-  }).catch(e=>alert(e.message));
+  })
+  .catch(e=>alert(e.message));
 }
 </script>
 </body>
