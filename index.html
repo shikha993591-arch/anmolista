@@ -1,41 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Anmolista Login</title>
-<style>
-body{
-  margin:0;
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:linear-gradient(45deg,#833ab4,#fd1d1d,#fcb045);
-  font-family:Arial;
-}
-.box{
-  background:#111;
-  padding:25px;
-  width:300px;
-  border-radius:10px;
-  color:white;
-  text-align:center;
-}
-input{
-  width:100%;
-  padding:10px;
-  margin:8px 0;
-}
-button{
-  width:100%;
-  padding:10px;
-  background:#2196f3;
-  border:none;
-  color:white;
-  font-size:16px;
-}
-a{color:#4fc3f7;cursor:pointer;}
-</style>
+  <title>Anmolista • Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body{
+      margin:0;
+      height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);
+      font-family:Arial;
+    }
+    .box{
+      background:#111;
+      width:90%;
+      max-width:380px;
+      padding:25px;
+      border-radius:14px;
+      color:#fff;
+      box-shadow:0 10px 40px rgba(0,0,0,.5);
+    }
+    h2{
+      text-align:center;
+      margin-bottom:20px;
+      font-family:cursive;
+    }
+    input,button{
+      width:100%;
+      padding:14px;
+      margin-top:12px;
+      border:none;
+      border-radius:8px;
+      font-size:16px;
+    }
+    input{ background:#333; color:#fff; }
+    button{
+      background:#0095f6;
+      color:#fff;
+      font-weight:bold;
+    }
+    .link{
+      text-align:center;
+      margin-top:15px;
+      color:#aaa;
+      cursor:pointer;
+    }
+  </style>
 </head>
+
 <body>
 
 <div class="box">
@@ -43,41 +57,12 @@ a{color:#4fc3f7;cursor:pointer;}
   <input id="email" placeholder="Email">
   <input id="password" type="password" placeholder="Password">
   <button onclick="login()">Log In</button>
-  <br><br>
-  <a onclick="signup()">Create new account</a>
+  <div class="link" onclick="signup()">Create new account</div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="app.js"></script>
 
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyBpF3Q1ESL76ywrp2_OVOoOJiFOv322z5M",
-  authDomain: "anmolista.firebaseapp.com",
-  projectId: "anmolista"
-};
-firebase.initializeApp(firebaseConfig);
-
-const auth = firebase.auth();
-const db = firebase.firestore();
-
-function login(){
-  auth.signInWithEmailAndPassword(email.value, password.value)
-  .then(()=>location.href="home.html")
-  .catch(e=>alert(e.message));
-}
-
-function signup(){
-  auth.createUserWithEmailAndPassword(email.value, password.value)
-  .then(()=>{
-    db.collection("users").doc(auth.currentUser.uid).set({
-      email: email.value
-    });
-    location.href="home.html";
-  })
-  .catch(e=>alert(e.message));
-}
-</script>
 </body>
 </html>
