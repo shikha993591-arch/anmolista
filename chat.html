@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Anmolista Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Firebase compat SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+</head>
+
+<body style="font-family:Arial;padding:20px;max-width:500px;margin:auto">
+
+<h2>Anmolista Chat</h2>
+
+<div id="chat"
+     style="height:300px;overflow:auto;border:1px solid #ccc;padding:10px;margin-bottom:10px">
+</div>
+
+<input id="text" placeholder="Type message"
+       style="width:75%;padding:10px">
+<button onclick="send()" style="padding:10px">Send</button>
+
+<script>
+  // 🔥 SAME FIREBASE CONFIG
+  const firebaseConfig = {
+    apiKey: "AIzaSyBpF3Q1ESL76ywrp2_OVOoOJiFOv322z5M",
+    authDomain: "anmolista.firebaseapp.com",
+    projectId: "anmolista",
+    storageBucket: "anmolista.firebasestorage.app",
+    messagingSenderId: "705625304580",
+    appId: "1:705625304580:web:294c43512874622ed34f51",
+    measurementId: "G-1YBT8NWQZV"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  // Redirect if not logged in
+  auth.onAuthStateChanged(user => {
+    if (!user) location.href = "index.html";
+  });
+
+  function send() {
+    if (!text.value) return;
+
+    db.collection("messages").add({
+      text: text.value,
+      time: Date.now()
+    });
+
+    text.value = "";
+  }
+
+  db.collection("messages")
+    .orderBy("time")
+    .onSnapshot(snapshot => {
+      chat.innerHTML = "";
+      snapshot.forEach(doc => {
+        chat.innerHTML += "<p>" + doc.data().text + "</p>";
+      });
+      chat.scrollTop = chat.scrollHeight;
+    });
+</script>
+
+</body>
+</html>
