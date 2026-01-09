@@ -1,176 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Anmolista Chat</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-body{
-  margin:0;
-  font-family: 'Segoe UI', sans-serif;
-  background:#ece5dd;
-}
-
-/* ===== HEADER ===== */
-.header{
-  background:#075e54;
-  color:white;
-  display:flex;
-  align-items:center;
-  padding:10px;
-}
-.avatar{
-  width:40px;height:40px;
-  border-radius:50%;
-  background:#bbb;
-  margin-right:10px;
-}
-.user-info b{font-size:16px;}
-.user-info small{
-  font-size:12px;
-  color:#cfe9df;
-}
-
-/* ===== CHAT AREA ===== */
-.chat-box{
-  height:70vh;
-  padding:10px;
-  overflow-y:auto;
-}
-
-/* ===== MESSAGE ===== */
-.msg{
-  max-width:75%;
-  padding:8px 12px;
-  border-radius:10px;
-  margin:6px 0;
-  font-size:14px;
-  line-height:1.4;
-  position:relative;
-}
-.left{
-  background:white;
-}
-.right{
-  background:#dcf8c6;
-  margin-left:auto;
-}
-.time{
-  font-size:10px;
-  color:#666;
-  text-align:right;
-  margin-top:4px;
-}
-
-/* ===== INPUT ===== */
-.input-area{
-  display:flex;
-  padding:10px;
-  background:white;
-}
-.input-area input{
-  flex:1;
-  padding:10px;
-  border-radius:20px;
-  border:1px solid #ccc;
-  outline:none;
-}
-.input-area button{
-  margin-left:8px;
-  background:#25d366;
-  color:white;
-  border:none;
-  padding:10px 16px;
-  border-radius:50%;
-  font-size:16px;
-}
-.typing{
-  font-size:12px;
-  color:#555;
-  margin-left:10px;
-}
-</style>
+  <title>Anmolista Chat</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- ===== HEADER ===== -->
-<div class="header">
-  <div class="avatar"></div>
-  <div class="user-info">
-    <b id="chatUser">anmol</b><br>
-    <small id="status">online</small>
+<div class="app">
+  <div class="sidebar">
+    <h2>Chats</h2>
+    <input placeholder="Search user">
+    <div id="users"></div>
+  </div>
+
+  <div class="chat-area">
+    <div id="messages"></div>
+    <input id="msg" placeholder="Message">
+    <button onclick="send()">Send</button>
   </div>
 </div>
 
-<!-- ===== CHAT ===== -->
-<div class="chat-box" id="chatBox">
-  <div class="msg left">
-    Hy 👋
-    <div class="time">10:01 AM</div>
-  </div>
-
-  <div class="msg right">
-    Hello 😄
-    <div class="time">10:02 AM ✓✓</div>
-  </div>
-</div>
-
-<div class="typing" id="typing" style="display:none;">
-  anmol is typing...
-</div>
-
-<!-- ===== INPUT ===== -->
-<div class="input-area">
-  <input id="message" placeholder="Type a message… 😊">
-  <button onclick="send()">➤</button>
-</div>
-
-<script>
-const chatBox = document.getElementById("chatBox");
-const typing = document.getElementById("typing");
-
-function timeNow(){
-  const d=new Date();
-  let h=d.getHours(), m=d.getMinutes();
-  return h+":"+(m<10?"0"+m:m);
-}
-
-function send(){
-  const msg = message.value.trim();
-  if(!msg) return;
-
-  const div = document.createElement("div");
-  div.className="msg right";
-  div.innerHTML = `
-    ${msg}
-    <div class="time">${timeNow()} ✓</div>
-  `;
-  chatBox.appendChild(div);
-  message.value="";
-  chatBox.scrollTop=chatBox.scrollHeight;
-
-  fakeReply();
-}
-
-function fakeReply(){
-  typing.style.display="block";
-
-  setTimeout(()=>{
-    typing.style.display="none";
-
-    const div = document.createElement("div");
-    div.className="msg left";
-    div.innerHTML = `
-      Okay 👍
-      <div class="time">${timeNow()}</div>
-    `;
-    chatBox.appendChild(div);
-    chatBox.scrollTop=chatBox.scrollHeight;
-  },2000);
-}
-</script>
-
+<script src="firebase.js"></script>
+<script src="chat.js"></script>
 </body>
 </html>
