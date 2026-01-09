@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<link rel="stylesheet" href="style.css">
 <title>Chat</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="chat-header">
-  <button onclick="goHome()">←</button>
-  <span id="chatWith"></span>
+<div class="header">
+  <a href="home.html">←</a>
+  <span id="name"></span>
 </div>
 
-<div id="messages" class="chat-area"></div>
-
-<div class="chat-input">
-  <input id="msg" placeholder="Message">
-  <button onclick="sendMessage()">➤</button>
+<div class="chat-area">
+  <div class="msg other">Hii</div>
+  <div class="msg me">Hello 👋</div>
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-<script src="app.js"></script>
+<div class="input">
+  <input placeholder="Message">
+  <button>➤</button>
+</div>
+
+<script>
+document.getElementById("name").innerText =
+  localStorage.chat || "Chat";
+</script>
+
 </body>
 </html>
