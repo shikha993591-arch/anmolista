@@ -2,63 +2,65 @@
 <html>
 <head>
 <title>Chat</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
-body{margin:0;font-family:Arial}
-#msgs{height:85vh;overflow:auto;padding:10px}
-.me{background:#dcf8c6;margin:6px;padding:8px;border-radius:8px;text-align:right}
-.other{background:#eee;margin:6px;padding:8px;border-radius:8px}
-input{width:78%;padding:10px}
-button{width:20%;padding:10px}
+body{margin:0;background:#111;color:white;font-family:Arial}
+#msgs{height:80vh;overflow:auto;padding:10px}
+.me{background:#4caf50;margin:5px;padding:8px;border-radius:8px;align-self:flex-end}
+.other{background:#333;margin:5px;padding:8px;border-radius:8px}
+#box{display:flex}
+input{flex:1;padding:10px}
+button{padding:10px}
 </style>
 </head>
 <body>
 
 <div id="msgs"></div>
-<input id="msg"><button onclick="send()">Send</button>
+<div id="box">
+<input id="msg">
+<button onclick="send()">Send</button>
+</div>
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
 <script>
-const firebaseConfig={
+firebase.initializeApp({
   apiKey:"AIzaSyBpF3Q1ESL76ywrp2_OVOoOJiFOv322z5M",
   authDomain:"anmolista.firebaseapp.com",
   projectId:"anmolista"
-};
-firebase.initializeApp(firebaseConfig);
-
+});
 const auth=firebase.auth();
 const db=firebase.firestore();
-const other=new URLSearchParams(location.search).get("uid");
+
+const uid=new URLSearchParams(location.search).get("uid");
 
 auth.onAuthStateChanged(u=>{
-  if(!u) location.href="index.html";
-  const id=[u.uid,other].sort().join("_");
-  db.collection("chats").doc(id).collection("msgs")
+  db.collection("chats").doc(chatId()).collection("msgs")
   .orderBy("time")
   .onSnapshot(s=>{
     msgs.innerHTML="";
     s.forEach(d=>{
-      const m=d.data();
       msgs.innerHTML+=
-      `<div class="${m.uid==u.uid?'me':'other'}">${m.text}</div>`;
+        `<div class="${d.data().from==u.uid?'me':'other'}">
+          ${d.data().text}
+        </div>`;
     });
   });
 });
 
+function chatId(){
+  return [auth.currentUser.uid,uid].sort().join("_");
+}
+
 function send(){
-  const u=auth.currentUser;
-  const id=[u.uid,other].sort().join("_");
-  db.collection("chats").doc(id).collection("msgs").add({
+  db.collection("chats").doc(chatId()).collection("msgs").add({
     text:msg.value,
-    uid:u.uid,
-    time:Date.now()
+    from:auth.currentUser.uid,
+    time:new Date()
   });
   msg.value="";
 }
 </script>
-
 </body>
 </html>
