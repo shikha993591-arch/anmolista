@@ -1,23 +1,100 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<link rel="stylesheet" href="style.css">
-<title>Setup Profile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Set up profile</title>
+
+<style>
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:Arial;
+  background:#f5f5f5;
+}
+.box{
+  background:#fff;
+  width:90%;
+  max-width:360px;
+  padding:20px;
+  border-radius:8px;
+  box-shadow:0 4px 12px rgba(0,0,0,.2);
+}
+input,textarea,button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  font-size:16px;
+}
+button{
+  background:#25d366;
+  border:none;
+  color:#000;
+}
+</style>
 </head>
+
 <body>
 
-<div class="setup-box">
+<div class="box">
   <h2>Set up profile</h2>
+
   <input id="name" placeholder="Name">
   <input id="username" placeholder="Username">
   <textarea id="bio" placeholder="Bio"></textarea>
-  <button onclick="saveProfile()">Continue</button>
+
+  <button id="continueBtn">Continue</button>
 </div>
 
+<!-- Firebase v8 -->
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-<script src="app.js"></script>
+
+<script>
+var firebaseConfig = {
+  apiKey: "AIzaSyBpF3Q1ESL76ywrp2_OVOoOJiFOv322z5M",
+  authDomain: "anmolista.firebaseapp.com",
+  projectId: "anmolista"
+};
+firebase.initializeApp(firebaseConfig);
+
+var auth = firebase.auth();
+var db = firebase.firestore();
+
+/* 🔥 BUTTON CLICK BINDING */
+document.getElementById("continueBtn").addEventListener("click", function(){
+  alert("CONTINUE CLICK ✔");   // 🔥 MUST SHOW
+
+  var user = auth.currentUser;
+  if(!user){
+    alert("User not logged in");
+    return;
+  }
+
+  var n = name.value.trim();
+  var u = username.value.trim();
+  var b = bio.value.trim();
+
+  if(!n || !u){
+    alert("Name & username required");
+    return;
+  }
+
+  db.collection("users").doc(user.uid).set({
+    name: n,
+    username: u,
+    bio: b,
+    createdAt: Date.now()
+  }).then(()=>{
+    location.href = "home.html";
+  }).catch(err=>{
+    alert(err.message);
+  });
+});
+</script>
+
 </body>
 </html>
