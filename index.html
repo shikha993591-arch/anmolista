@@ -4,7 +4,20 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <link rel="stylesheet" href="style.css">
 <title>Login</title>
+
+<style>
+/* 🔥 FORCE CLICK FIX */
+button {
+  pointer-events: auto !important;
+  z-index: 10;
+  position: relative;
+}
+.login-card {
+  pointer-events: auto;
+}
+</style>
 </head>
+
 <body class="login-bg">
 
 <div class="login-card">
@@ -16,52 +29,48 @@
   <button onclick="login()">Login / Signup</button>
 </div>
 
-<!-- 🔥 FIREBASE v8 – CORRECT ORDER -->
+<!-- FIREBASE v8 (stable) -->
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
 <script>
-  // 🔥 SAME CONFIG EVERYWHERE
-  var firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "anmolista.firebaseapp.com",
-    projectId: "anmolista"
-  };
-  firebase.initializeApp(firebaseConfig);
+var firebaseConfig = {
+  apiKey: "AIzaSyBpF3Q1ESL76ywrp2_OVOoOJiFOv322z5M",
+  authDomain: "anmolista.firebaseapp.com",
+  projectId: "anmolista"
+};
+firebase.initializeApp(firebaseConfig);
 
-  var auth = firebase.auth();
-  var db = firebase.firestore();
+var auth = firebase.auth();
+var db = firebase.firestore();
 
-  // 🔥 LOGIN / SIGNUP LOGIC
-  function login(){
-    var e = document.getElementById("email").value;
-    var p = document.getElementById("password").value;
+function login(){
+  alert("Button clicked ✔"); // 🔥 TEST LINE
 
-    if(!e || !p){
-      alert("Email & Password required");
-      return;
-    }
+  var e = document.getElementById("email").value;
+  var p = document.getElementById("password").value;
 
-    auth.signInWithEmailAndPassword(e,p)
-    .then(()=> afterLogin())
-    .catch(()=>{
-      auth.createUserWithEmailAndPassword(e,p)
-      .then(()=> afterLogin())
-      .catch(err=> alert(err.message));
-    });
+  if(!e || !p){
+    alert("Email & password required");
+    return;
   }
 
-  function afterLogin(){
-    var u = auth.currentUser;
-    db.collection("users").doc(u.uid).get().then(doc=>{
-      if(doc.exists){
-        location.href = "home.html";
-      } else {
-        location.href = "setup.html";
-      }
-    });
-  }
+  auth.signInWithEmailAndPassword(e,p)
+  .then(afterLogin)
+  .catch(()=>{
+    auth.createUserWithEmailAndPassword(e,p)
+    .then(afterLogin)
+    .catch(err=>alert(err.message));
+  });
+}
+
+function afterLogin(){
+  var u = auth.currentUser;
+  db.collection("users").doc(u.uid).get().then(d=>{
+    location.href = d.exists ? "home.html" : "setup.html";
+  });
+}
 </script>
 
 </body>
