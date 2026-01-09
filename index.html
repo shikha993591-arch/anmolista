@@ -9,14 +9,60 @@
 
 <div class="login-card">
   <h1>Anmolista</h1>
-  <input id="email" placeholder="Email">
+
+  <input id="email" type="email" placeholder="Email">
   <input id="password" type="password" placeholder="Password">
+
   <button onclick="login()">Login / Signup</button>
 </div>
 
+<!-- 🔥 FIREBASE v8 – CORRECT ORDER -->
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-<script src="app.js"></script>
+
+<script>
+  // 🔥 SAME CONFIG EVERYWHERE
+  var firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "anmolista.firebaseapp.com",
+    projectId: "anmolista"
+  };
+  firebase.initializeApp(firebaseConfig);
+
+  var auth = firebase.auth();
+  var db = firebase.firestore();
+
+  // 🔥 LOGIN / SIGNUP LOGIC
+  function login(){
+    var e = document.getElementById("email").value;
+    var p = document.getElementById("password").value;
+
+    if(!e || !p){
+      alert("Email & Password required");
+      return;
+    }
+
+    auth.signInWithEmailAndPassword(e,p)
+    .then(()=> afterLogin())
+    .catch(()=>{
+      auth.createUserWithEmailAndPassword(e,p)
+      .then(()=> afterLogin())
+      .catch(err=> alert(err.message));
+    });
+  }
+
+  function afterLogin(){
+    var u = auth.currentUser;
+    db.collection("users").doc(u.uid).get().then(doc=>{
+      if(doc.exists){
+        location.href = "home.html";
+      } else {
+        location.href = "setup.html";
+      }
+    });
+  }
+</script>
+
 </body>
 </html>
