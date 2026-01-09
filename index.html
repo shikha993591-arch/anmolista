@@ -1,69 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Anmolista - Login</title>
+  <title>Anmolista Login</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Firebase compat SDKs (browser friendly) -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 </head>
+<body style="font-family:sans-serif; text-align:center; padding-top:80px">
 
-<body style="font-family:Arial;padding:20px;max-width:400px;margin:auto">
+  <h2>Anmolista</h2>
+  <p>Enter your username</p>
 
-<h2>Anmolista</h2>
+  <input id="username" placeholder="username" style="padding:10px; width:80%">
+  <br><br>
+  <button onclick="login()" style="padding:10px 20px">Continue</button>
 
-<input id="email" placeholder="Email" style="width:100%;padding:10px"><br><br>
-<input id="password" type="password" placeholder="Password" style="width:100%;padding:10px"><br><br>
-
-<button onclick="signup()" style="width:100%;padding:10px">Sign Up</button><br><br>
-<button onclick="login()" style="width:100%;padding:10px">Login</button><br><br>
-
-<button onclick="resetPassword()" style="width:100%;padding:10px">
-  Forgot Password
-</button>
-
-<p id="msg" style="color:red"></p>
-
-<script>
-  // 🔥 YOUR FIREBASE CONFIG (PASTED)
-  const firebaseConfig = {
-    apiKey: "AIzaSyBpF3Q1ESL76ywrp2_OVOoOJiFOv322z5M",
-    authDomain: "anmolista.firebaseapp.com",
-    projectId: "anmolista",
-    storageBucket: "anmolista.firebasestorage.app",
-    messagingSenderId: "705625304580",
-    appId: "1:705625304580:web:294c43512874622ed34f51",
-    measurementId: "G-1YBT8NWQZV"
-  };
-
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-
-  function signup() {
-    auth.createUserWithEmailAndPassword(
-      email.value,
-      password.value
-    ).then(() => {
-      location.href = "chat.html";
-    }).catch(e => msg.innerText = e.message);
-  }
-
-  function login() {
-    auth.signInWithEmailAndPassword(
-      email.value,
-      password.value
-    ).then(() => {
-      location.href = "chat.html";
-    }).catch(e => msg.innerText = e.message);
-  }
-
-  function resetPassword() {
-    auth.sendPasswordResetEmail(email.value)
-      .then(() => alert("Password reset email sent"))
-      .catch(e => msg.innerText = e.message);
-  }
-</script>
+  <script>
+    function login(){
+      const u = document.getElementById("username").value.trim();
+      if(!u) return alert("Enter username");
+      localStorage.setItem("anmolista_user", u);
+      window.location.href = "chat.html";
+    }
+  </script>
 
 </body>
 </html>
