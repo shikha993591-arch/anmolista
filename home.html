@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Anmolista Chats</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{margin:0;font-family:Arial}
+.top{padding:12px;font-size:20px;font-weight:bold}
+input{width:100%;padding:10px;font-size:15px}
+.user{
+  padding:12px;border-bottom:1px solid #ddd;
+  cursor:pointer
+}
+</style>
+</head>
+<body>
+
+<div class="top">Chats</div>
+<input id="search" placeholder="Search username" onkeyup="find()">
+<div id="list"></div>
+
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig={
+  apiKey:"AIzaSyBpF3Q1ESL76ywrp2_OVOoOJiFOv322z5M",
+  authDomain:"anmolista.firebaseapp.com",
+  projectId:"anmolista"
+};
+firebase.initializeApp(firebaseConfig);
+const db=firebase.firestore();
+
+function find(){
+  list.innerHTML="";
+  if(!search.value) return;
+  db.collection("users")
+  .where("username","==",search.value)
+  .get()
+  .then(s=>{
+    s.forEach(d=>{
+      list.innerHTML+=
+      `<div class="user" onclick="openChat('${d.id}')">@${d.data().username}</div>`;
+    });
+  });
+}
+function openChat(uid){
+  location.href="chat.html?uid="+uid;
+}
+</script>
+
+</body>
+</html>
