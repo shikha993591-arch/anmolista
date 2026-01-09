@@ -3,21 +3,20 @@
 <head>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <link rel="stylesheet" href="style.css">
+<title>Chats</title>
 </head>
 <body>
 
-<div class="home-header">
-  <span>Anmolista</span>
-  <a href="profile.html">👤</a>
-</div>
+<div class="home-header">Anmolista</div>
 
-<input class="search" id="searchUser" placeholder="Search username">
+<input id="searchUser" class="search" placeholder="Search username">
+<div id="searchResult"></div>
 
 <div id="chatList"></div>
 
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
