@@ -64,13 +64,23 @@ firebase.initializeApp(firebaseConfig);
 var auth = firebase.auth();
 var db = firebase.firestore();
 
-/* 🔥 BUTTON CLICK BINDING */
-document.getElementById("continueBtn").addEventListener("click", function(){
-  alert("CONTINUE CLICK ✔");   // 🔥 MUST SHOW
+var currentUser = null;
 
-  var user = auth.currentUser;
+/* 🔥 WAIT FOR AUTH STATE */
+auth.onAuthStateChanged(function(user){
   if(!user){
-    alert("User not logged in");
+    alert("Session expired, please login again");
+    location.href = "index.html";
+    return;
+  }
+  currentUser = user;
+});
+
+/* 🔥 CONTINUE CLICK */
+document.getElementById("continueBtn").addEventListener("click", function(){
+
+  if(!currentUser){
+    alert("Please wait, loading user...");
     return;
   }
 
@@ -83,14 +93,15 @@ document.getElementById("continueBtn").addEventListener("click", function(){
     return;
   }
 
-  db.collection("users").doc(user.uid).set({
+  db.collection("users").doc(currentUser.uid).set({
     name: n,
     username: u,
     bio: b,
     createdAt: Date.now()
-  }).then(()=>{
-    location.href = "home.html";
-  }).catch(err=>{
+  }).then(function(){
+    // 🔥 GUARANTEED REDIRECT
+    window.location.replace("home.html");
+  }).catch(function(err){
     alert(err.message);
   });
 });
