@@ -1,44 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Chat</title>
-  <link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="container">
-
-  <div class="topbar" id="chatName">Chat</div>
-
-  <div class="chat-area" id="chatArea">
-    <div class="msg left">Hyy</div>
-    <div class="msg left">Hyy anmol</div>
-    <div class="msg right">Haa kaise ho</div>
+<div class="chat-header">
+  <img id="chatPhoto">
+  <div>
+    <div id="chatName"></div>
+    <small id="lastSeen"></small>
   </div>
-
-  <div class="input-bar">
-    <input id="msgInput" placeholder="Type a message">
-    <button onclick="sendMsg()">➤</button>
-  </div>
-
 </div>
 
-<script>
-document.getElementById("chatName").innerText =
-  localStorage.getItem("chatUser") || "Chat";
+<div id="messages" class="chat-area"></div>
 
-function sendMsg() {
-  const input = document.getElementById("msgInput");
-  if (!input.value) return;
+<div class="chat-input">
+  <input id="msg" placeholder="Message">
+  <button onclick="sendMessage()">➤</button>
+</div>
 
-  const div = document.createElement("div");
-  div.className = "msg right";
-  div.innerText = input.value;
-
-  document.getElementById("chatArea").appendChild(div);
-  input.value = "";
-}
-</script>
-
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="app.js"></script>
 </body>
 </html>
