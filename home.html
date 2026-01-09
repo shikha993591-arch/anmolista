@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Anmolista Chats</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <h2>Anmolista</h2>
+</div>
+
+<div class="search-box">
+  <input type="text" id="searchUser" placeholder="Search username">
+</div>
+
+<div class="chat-list" id="chatList">
+
+  <!-- Demo chat card -->
+  <div class="chat-card" onclick="openChat('anmol')">
+    <div class="avatar">A</div>
+    <div class="chat-info">
+      <div class="username">anmol</div>
+      <div class="lastmsg">Hyy kese ho</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function openChat(username){
+  window.location.href = "chat.html?user=" + username;
+}
+</script>
+
+</body>
+</html>
