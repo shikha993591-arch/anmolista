@@ -2,102 +2,87 @@
 <html>
 <head>
   <title>Anmolista Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body{
       margin:0;
       height:100vh;
-      background:#f5f5f5;
       display:flex;
       justify-content:center;
       align-items:center;
+      background:linear-gradient(45deg,#833ab4,#fd1d1d,#fcb045);
       font-family:Arial;
     }
     .box{
-      background:#fff;
-      width:90%;
-      max-width:360px;
+      background:#111;
       padding:25px;
+      width:300px;
       border-radius:10px;
-      box-shadow:0 5px 15px rgba(0,0,0,.15);
+      color:white;
       text-align:center;
-    }
-    h2{
-      margin-bottom:20px;
-      font-weight:bold;
     }
     input{
       width:100%;
-      padding:12px;
+      padding:10px;
       margin:8px 0;
-      font-size:15px;
-      border:1px solid #ccc;
-      border-radius:6px;
     }
     button{
       width:100%;
-      padding:12px;
-      margin-top:10px;
-      font-size:16px;
+      padding:10px;
+      background:#2196f3;
       border:none;
-      border-radius:6px;
-      background:#25D366;
       color:white;
-      cursor:pointer;
+      font-size:16px;
     }
-    .signup{
-      margin-top:15px;
-      color:#007bff;
-      cursor:pointer;
-      font-size:14px;
-    }
+    a{color:#4fc3f7;cursor:pointer;}
   </style>
 </head>
-
 <body>
 
 <div class="box">
   <h2>Anmolista</h2>
-
   <input id="email" placeholder="Email">
   <input id="password" type="password" placeholder="Password">
-
-  <button onclick="login()">Login</button>
-  <div class="signup" onclick="signup()">Create new account</div>
+  <button onclick="login()">Log In</button>
+  <br><br>
+  <a onclick="signup()">Create new account</a>
 </div>
 
-<!-- ✅ SAME WORKING FIREBASE SETUP -->
+<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
 <script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyBpF3Q1ESL76ywrp2_OVOoOJiFOv322z5M",
-    authDomain: "anmolista.firebaseapp.com",
-    projectId: "anmolista"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyBpF3Q1ESL76ywrp2_OVOoOJiFOv322z5M",
+  authDomain: "anmolista.firebaseapp.com",
+  projectId: "anmolista"
+};
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const db = firebase.firestore();
 
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
+function login(){
+  auth.signInWithEmailAndPassword(
+    email.value,
+    password.value
+  ).then(()=>{
+    location.href="home.html";
+  }).catch(e=>alert(e.message));
+}
 
-  function login(){
-    auth.signInWithEmailAndPassword(
-      email.value,
-      password.value
-    ).then(()=>{
-      location.href="home.html";
-    }).catch(e=>alert(e.message));
-  }
-
-  function signup(){
-    auth.createUserWithEmailAndPassword(
-      email.value,
-      password.value
-    ).then(()=>{
-      location.href="profile.html";
-    }).catch(e=>alert(e.message));
-  }
+function signup(){
+  auth.createUserWithEmailAndPassword(
+    email.value,
+    password.value
+  ).then(()=>{
+    db.collection("users").doc(auth.currentUser.uid).set({
+      email: email.value,
+      lastSeen: new Date()
+    });
+    location.href="home.html";
+  }).catch(e=>alert(e.message));
+}
 </script>
-
 </body>
 </html>
