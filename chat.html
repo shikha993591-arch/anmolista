@@ -4,65 +4,80 @@
   <title>Anmolista Chat</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Firebase compat SDKs -->
+  <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <style>
+    body{margin:0;font-family:sans-serif;background:#ece5dd}
+    header{background:#075e54;color:white;padding:12px;text-align:center}
+    #chat{padding:10px; height:70vh; overflow-y:auto}
+    .msg{max-width:70%;padding:8px 12px;margin:6px;border-radius:10px}
+    .me{background:#dcf8c6;margin-left:auto}
+    .other{background:white}
+    footer{display:flex;padding:8px;background:#f0f0f0}
+    input{flex:1;padding:10px;border-radius:20px;border:1px solid #ccc}
+    button{margin-left:5px;padding:10px 15px;border:none;background:#075e54;color:white;border-radius:50%}
+  </style>
 </head>
+<body>
 
-<body style="font-family:Arial;padding:20px;max-width:500px;margin:auto">
+<header id="head"></header>
 
-<h2>Anmolista Chat</h2>
+<div id="chat"></div>
 
-<div id="chat"
-     style="height:300px;overflow:auto;border:1px solid #ccc;padding:10px;margin-bottom:10px">
-</div>
-
-<input id="text" placeholder="Type message"
-       style="width:75%;padding:10px">
-<button onclick="send()" style="padding:10px">Send</button>
+<footer>
+  <input id="msg" placeholder="Type a message">
+  <button onclick="send()">➤</button>
+</footer>
 
 <script>
-  // 🔥 SAME FIREBASE CONFIG
+  // 🔥 Firebase config (tumhara)
   const firebaseConfig = {
     apiKey: "AIzaSyBpF3Q1ESL76ywrp2_OVOoOJiFOv322z5M",
     authDomain: "anmolista.firebaseapp.com",
-    projectId: "anmolista",
-    storageBucket: "anmolista.firebasestorage.app",
-    messagingSenderId: "705625304580",
-    appId: "1:705625304580:web:294c43512874622ed34f51",
-    measurementId: "G-1YBT8NWQZV"
+    projectId: "anmolista"
   };
 
   firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
   const db = firebase.firestore();
 
-  // Redirect if not logged in
-  auth.onAuthStateChanged(user => {
-    if (!user) location.href = "index.html";
-  });
+  const me = localStorage.getItem("anmolista_user");
+  if(!me) location.href="index.html";
 
-  function send() {
-    if (!text.value) return;
+  const other = prompt("Chat with username:");
+  document.getElementById("head").innerText = other;
 
-    db.collection("messages").add({
-      text: text.value,
-      time: Date.now()
-    });
+  const chatId = [me, other].sort().join("_");
 
-    text.value = "";
-  }
-
-  db.collection("messages")
+  db.collection("chats").doc(chatId)
+    .collection("messages")
     .orderBy("time")
-    .onSnapshot(snapshot => {
-      chat.innerHTML = "";
-      snapshot.forEach(doc => {
-        chat.innerHTML += "<p>" + doc.data().text + "</p>";
-      });
-      chat.scrollTop = chat.scrollHeight;
+    .onSnapshot(snap=>{
+      chat.innerHTML="";
+      snap.forEach(d=>{
+        const m=d.data();
+        const div=document.createElement("div");
+        div.className="msg "+(m.from===me?"me":"other");
+        div.innerText=m.text;
+        chat.appendChild(div);
+        chat.scrollTop=chat.scrollHeight;
+      })
     });
+
+  function send(){
+    const text=msg.value.trim();
+    if(!text) return;
+    db.collection("chats").doc(chatId)
+      .collection("messages")
+      .add({
+        from:me,
+        to:other,
+        text,
+        time:firebase.firestore.FieldValue.serverTimestamp()
+      });
+    msg.value="";
+  }
 </script>
 
 </body>
