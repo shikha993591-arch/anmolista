@@ -1,22 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<link rel="stylesheet" href="style.css">
 <title>Chats</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="home-header">Anmolista</div>
+<div class="header">
+  <span>Anmolista</span>
+  <a href="profile.html">👤</a>
+</div>
 
-<input id="searchUser" class="search" placeholder="Search username">
-<div id="searchResult"></div>
+<div class="search">
+  <input placeholder="Search username">
+</div>
 
-<div id="chatList"></div>
+<div onclick="openChat('Anmol')" class="chat-item">
+  <div class="avatar">A</div>
+  <div>
+    <b>Anmol</b><br>
+    <small>Hey, kaise ho?</small>
+  </div>
+</div>
 
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-<script src="app.js"></script>
+<script>
+function openChat(name){
+  localStorage.chat=name;
+  location='chat.html';
+}
+</script>
+
 </body>
 </html>
