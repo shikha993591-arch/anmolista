@@ -1,26 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Anmolista Chat</title>
-  <link rel="stylesheet" href="style.css">
+<title>Chat</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{margin:0;font-family:Arial}
+#msgs{height:85vh;overflow:auto;padding:10px}
+.me{background:#dcf8c6;margin:6px;padding:8px;border-radius:8px;text-align:right}
+.other{background:#eee;margin:6px;padding:8px;border-radius:8px}
+input{width:78%;padding:10px}
+button{width:20%;padding:10px}
+</style>
 </head>
 <body>
 
-<div class="app">
-  <div class="sidebar">
-    <h2>Chats</h2>
-    <input placeholder="Search user">
-    <div id="users"></div>
-  </div>
+<div id="msgs"></div>
+<input id="msg"><button onclick="send()">Send</button>
 
-  <div class="chat-area">
-    <div id="messages"></div>
-    <input id="msg" placeholder="Message">
-    <button onclick="send()">Send</button>
-  </div>
-</div>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-<script src="firebase.js"></script>
-<script src="chat.js"></script>
+<script>
+const firebaseConfig={
+  apiKey:"AIzaSyBpF3Q1ESL76ywrp2_OVOoOJiFOv322z5M",
+  authDomain:"anmolista.firebaseapp.com",
+  projectId:"anmolista"
+};
+firebase.initializeApp(firebaseConfig);
+
+const auth=firebase.auth();
+const db=firebase.firestore();
+const other=new URLSearchParams(location.search).get("uid");
+
+auth.onAuthStateChanged(u=>{
+  if(!u) location.href="index.html";
+  const id=[u.uid,other].sort().join("_");
+  db.collection("chats").doc(id).collection("msgs")
+  .orderBy("time")
+  .onSnapshot(s=>{
+    msgs.innerHTML="";
+    s.forEach(d=>{
+      const m=d.data();
+      msgs.innerHTML+=
+      `<div class="${m.uid==u.uid?'me':'other'}">${m.text}</div>`;
+    });
+  });
+});
+
+function send(){
+  const u=auth.currentUser;
+  const id=[u.uid,other].sort().join("_");
+  db.collection("chats").doc(id).collection("msgs").add({
+    text:msg.value,
+    uid:u.uid,
+    time:Date.now()
+  });
+  msg.value="";
+}
+</script>
+
 </body>
 </html>
