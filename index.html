@@ -2,67 +2,27 @@
 <html>
 <head>
   <title>Anmolista • Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body{
-      margin:0;
-      height:100vh;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);
-      font-family:Arial;
-    }
-    .box{
-      background:#111;
-      width:90%;
-      max-width:380px;
-      padding:25px;
-      border-radius:14px;
-      color:#fff;
-      box-shadow:0 10px 40px rgba(0,0,0,.5);
-    }
-    h2{
-      text-align:center;
-      margin-bottom:20px;
-      font-family:cursive;
-    }
-    input,button{
-      width:100%;
-      padding:14px;
-      margin-top:12px;
-      border:none;
-      border-radius:8px;
-      font-size:16px;
-    }
-    input{ background:#333; color:#fff; }
-    button{
-      background:#0095f6;
-      color:#fff;
-      font-weight:bold;
-    }
-    .link{
-      text-align:center;
-      margin-top:15px;
-      color:#aaa;
-      cursor:pointer;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<div class="box">
-  <h2>Anmolista</h2>
-  <input id="email" placeholder="Email">
-  <input id="password" type="password" placeholder="Password">
-  <button onclick="login()">Log In</button>
-  <div class="link" onclick="signup()">Create new account</div>
+<div class="login-bg">
+  <div class="login-card">
+    <h1>Anmolista</h1>
+
+    <input type="email" placeholder="Email">
+    <input type="password" placeholder="Password">
+
+    <button onclick="login()">Log In</button>
+  </div>
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="app.js"></script>
+<script>
+function login() {
+  // Abhi dummy login (Phase-2 me Firebase connect hoga)
+  window.location.href = "home.html";
+}
+</script>
 
 </body>
 </html>
