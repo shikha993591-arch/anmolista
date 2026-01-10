@@ -1,25 +1,61 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Chat</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chat</title>
+<style>
+body{margin:0;background:#050b07;color:white;font-family:system-ui}
+#msgs{padding:15px;height:80vh;overflow:auto}
+.me{background:#10b981;color:black;padding:10px;border-radius:12px;margin:8px 0;margin-left:auto;max-width:70%}
+.other{background:#1f2933;padding:10px;border-radius:12px;margin:8px 0;max-width:70%}
+footer{display:flex;padding:10px}
+input{flex:1;padding:14px;border-radius:20px;border:none}
+button{margin-left:8px;padding:14px;border:none;border-radius:50%;background:#34d399}
+</style>
 </head>
-
 <body>
 
-<div class="chat-header">
-  <span onclick="goBack()">←</span>
-  <span id="chatUser" style="margin-left:12px"></span>
-</div>
+<h3 style="padding:10px">@<span id="u"></span></h3>
+<div id="msgs"></div>
 
-<div class="messages" id="messages"></div>
+<footer>
+  <input id="m" placeholder="Message">
+  <button onclick="send()">➤</button>
+</footer>
 
-<div class="chat-input">
-  <input id="msg" placeholder="Type a message">
-  <button onclick="sendMsg()">➤</button>
-</div>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-<script src="app.js"></script>
+<script>
+firebase.initializeApp({
+  apiKey:"AIzaSyBpF3Q1ESL76ywrp2_OVOoOJiFOv322z5M",
+  authDomain:"anmolista.firebaseapp.com",
+  projectId:"anmolista"
+});
+const db=firebase.firestore();
+
+const me=localStorage.username;
+const other=localStorage.chat;
+u.innerText=other;
+const room=[me,other].sort().join("_");
+
+db.collection("chats").doc(room)
+.collection("m").orderBy("t")
+.onSnapshot(s=>{
+  msgs.innerHTML="";
+  s.forEach(d=>{
+    const m=d.data();
+    msgs.innerHTML+=`<div class="${m.f==me?'me':'other'}">${m.t}</div>`;
+  });
+  msgs.scrollTop=msgs.scrollHeight;
+});
+
+function send(){
+  db.collection("chats").doc(room)
+  .collection("m").add({f:me,t:m.value,ts:Date.now()});
+  m.value="";
+}
+</script>
+
 </body>
 </html>
