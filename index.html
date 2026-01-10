@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Anmolista • Login</title>
+  <title>Anmolista Login</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="login-body">
 
 <div class="login-box">
   <h1>Anmolista</h1>
 
-  <input id="username" placeholder="Username or Email">
-  <input type="password" placeholder="Password">
+  <input id="username" placeholder="Username">
+  <button onclick="login()">Log In</button>
 
-  <button onclick="tempLogin()">Log In</button>
-
-  <p class="small">Temporary login – backend later</p>
+  <p style="color:#aaa;text-align:center;margin-top:12px">
+    Temporary login (backend later)
+  </p>
 </div>
 
 <script src="app.js"></script>
