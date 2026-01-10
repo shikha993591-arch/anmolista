@@ -1,33 +1,59 @@
-const db=firebase.firestore();
-const me=localStorage.getItem("username");
-const other=localStorage.getItem("chatUser");
-document.getElementById("chatWith").innerText=other;
+const me = localStorage.getItem("currentUser");
 
-const chatId=[me,other].sort().join("_");
+if(document.getElementById("myUser")){
+  myUser.innerText="@"+me;
+  loadChats();
+}
 
-db.collection("chats").doc(chatId)
-.collection("messages").orderBy("time")
-.onSnapshot(snap=>{
-  const box=document.getElementById("messages");
-  box.innerHTML="";
-  snap.forEach(d=>{
-    const m=d.data();
-    box.innerHTML+=`
-      <div style="margin:8px;
-      text-align:${m.from===me?'right':'left'};
-      color:white">
-      <span style="background:#10b98122;
-      padding:8px;border-radius:10px">${m.text}</span>
-      </div>`;
-  });
-});
+function startChat(){
+  const u = searchUser.value.trim();
+  if(!u) return;
+  localStorage.setItem("openChat", u);
+  location.href="chat.html";
+}
+
+function loadChats(){
+  chatList.innerHTML="";
+  for(let k in localStorage){
+    if(k.startsWith("chat_"+me+"_")){
+      const u = k.split("_")[2];
+      const d = document.createElement("div");
+      d.className="chat-item";
+      d.innerText=u;
+      d.onclick=()=>{localStorage.setItem("openChat",u);location.href="chat.html";}
+      chatList.appendChild(d);
+    }
+  }
+}
+
+if(document.getElementById("chatUser")){
+  const u = localStorage.getItem("openChat");
+  chatUser.innerText=u;
+  loadMsgs(u);
+}
 
 function sendMsg(){
-  const t=document.getElementById("msg");
-  if(!t.value)return;
-  db.collection("chats").doc(chatId)
-  .collection("messages").add({
-    from:me,text:t.value,time:Date.now()
-  });
-  t.value="";
+  const u = localStorage.getItem("openChat");
+  const t = msgInput.value.trim();
+  if(!t) return;
+  const k="chat_"+me+"_"+u;
+  const arr=JSON.parse(localStorage.getItem(k)||"[]");
+  arr.push({me:true,text:t});
+  localStorage.setItem(k,JSON.stringify(arr));
+  msgInput.value="";
+  loadMsgs(u);
 }
+
+function loadMsgs(u){
+  messages.innerHTML="";
+  const k="chat_"+me+"_"+u;
+  const arr=JSON.parse(localStorage.getItem(k)||"[]");
+  arr.forEach(m=>{
+    const d=document.createElement("div");
+    d.className="msg "+(m.me?"me":"other");
+    d.innerText=m.text;
+    messages.appendChild(d);
+  });
+}
+
+function goBack(){location.href="home.html";}
