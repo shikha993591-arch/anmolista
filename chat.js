@@ -1,61 +1,73 @@
-const currentUser = localStorage.getItem("currentUser");
-const users = JSON.parse(localStorage.getItem("anmolista_users")) || [];
+const me = localStorage.getItem("currentUser");
+if (!me) location.href = "index.html";
 
-if (document.getElementById("chatList")) {
-  const chatList = document.getElementById("chatList");
-  const search = document.getElementById("searchUser");
-
-  function render(list) {
-    chatList.innerHTML = "";
-    list.forEach(u => {
-      if (u.username === currentUser) return;
-      const div = document.createElement("div");
-      div.className = "chat-row";
-      div.innerHTML = `<div class="avatar"></div><strong>${u.username}</strong>`;
-      div.onclick = () => {
-        localStorage.setItem("chatWith", u.username);
-        location.href = "chat.html";
-      };
-      chatList.appendChild(div);
-    });
-  }
-
-  render(users);
-
-  search.oninput = e => {
-    render(users.filter(u => u.username.includes(e.target.value)));
-  };
+if (document.getElementById("me")) {
+  document.getElementById("me").innerText = me;
+  loadChats();
 }
 
-/* CHAT SCREEN */
-if (document.getElementById("sendBtn")) {
-  const withUser = localStorage.getItem("chatWith");
-  document.getElementById("chatWithName").innerText = withUser;
+function startChat() {
+  const u = document.getElementById("searchUser").value.trim();
+  if (!u || u === me) return alert("Invalid user");
 
+  localStorage.setItem("chatWith", u);
+  location.href = "chat.html";
+}
+
+function loadChats() {
+  const users = JSON.parse(localStorage.getItem("users") || "{}");
+  const list = document.getElementById("chatList");
+  list.innerHTML = "";
+
+  Object.keys(users).forEach(u => {
+    if (u !== me) {
+      const div = document.createElement("div");
+      div.className = "chat-row";
+      div.innerText = u;
+      div.onclick = () => {
+        localStorage.setItem("chatWith", u);
+        location.href = "chat.html";
+      };
+      list.appendChild(div);
+    }
+  });
+}
+
+if (document.getElementById("chatWith")) {
+  document.getElementById("chatWith").innerText = localStorage.getItem("chatWith");
+  render();
+}
+
+function send() {
+  const text = document.getElementById("msg").value;
+  if (!text) return;
+
+  const key = me + "_" + localStorage.getItem("chatWith");
+  let msgs = JSON.parse(localStorage.getItem(key) || "[]");
+  msgs.push({ from: me, text });
+  localStorage.setItem(key, JSON.stringify(msgs));
+  document.getElementById("msg").value = "";
+  render();
+}
+
+function render() {
   const box = document.getElementById("messages");
-  const input = document.getElementById("messageInput");
+  const key = me + "_" + localStorage.getItem("chatWith");
+  let msgs = JSON.parse(localStorage.getItem(key) || "[]");
 
-  const key = [currentUser, withUser].sort().join("_");
-  let chats = JSON.parse(localStorage.getItem("chats")) || {};
+  box.innerHTML = "";
+  msgs.forEach(m => {
+    const d = document.createElement("div");
+    d.className = m.from === me ? "bubble me" : "bubble";
+    d.innerText = m.text;
+    box.appendChild(d);
+  });
+}
 
-  function draw() {
-    box.innerHTML = "";
-    (chats[key] || []).forEach(m => {
-      const d = document.createElement("div");
-      d.className = m.from === currentUser ? "sent" : "received";
-      d.innerText = m.text;
-      box.appendChild(d);
-    });
-  }
-
-  document.getElementById("sendBtn").onclick = () => {
-    if (!input.value.trim()) return;
-    chats[key] = chats[key] || [];
-    chats[key].push({ from: currentUser, text: input.value });
-    localStorage.setItem("chats", JSON.stringify(chats));
-    input.value = "";
-    draw();
-  };
-
-  draw();
+function back() {
+  location.href = "home.html";
+}
+function logout() {
+  localStorage.clear();
+  location.href = "index.html";
 }
