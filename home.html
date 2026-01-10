@@ -1,52 +1,30 @@
-function signup() {
-  const email = emailInput();
-  const username = usernameInput();
-  const password = passwordInput();
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Anmolista • Chats</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="home-body">
 
-  if (!email || !username || !password) {
-    alert("Fill all fields");
-    return;
-  }
+<header class="top-bar">
+  <h2>Anmolista</h2>
+  <span class="user">@<b id="me"></b></span>
+</header>
 
-  let users = JSON.parse(localStorage.getItem("users") || "{}");
+<div class="search-wrap">
+  <input id="searchUser" placeholder="Search username">
+  <button onclick="startChat()">Search</button>
+</div>
 
-  if (users[username]) {
-    alert("Username already exists");
-    return;
-  }
+<div id="chatList" class="chat-list"></div>
 
-  users[username] = { email, password };
-  localStorage.setItem("users", JSON.stringify(users));
+<nav class="bottom-nav">
+  <button>Chats</button>
+  <button>Profile</button>
+  <button onclick="logout()">Logout</button>
+</nav>
 
-  localStorage.setItem("currentUser", username);
-  location.href = "home.html";
-}
-
-function login() {
-  const email = emailInput();
-  const password = passwordInput();
-
-  let users = JSON.parse(localStorage.getItem("users") || "{}");
-
-  const user = Object.entries(users).find(
-    ([_, u]) => u.email === email && u.password === password
-  );
-
-  if (!user) {
-    alert("Invalid login");
-    return;
-  }
-
-  localStorage.setItem("currentUser", user[0]);
-  location.href = "home.html";
-}
-
-function emailInput() {
-  return document.getElementById("email").value.trim();
-}
-function usernameInput() {
-  return document.getElementById("username").value.trim();
-}
-function passwordInput() {
-  return document.getElementById("password").value.trim();
-}
+<script src="chat.js"></script>
+</body>
+</html>
