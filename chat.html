@@ -5,17 +5,20 @@
 <link rel="stylesheet" href="style.css">
 <script defer src="chat.js"></script>
 </head>
-<body class="bg">
 
-<div class="login-card" style="height:90%">
-  <h3 id="chatWith" style="color:#34d399"></h3>
+<body class="chat-body">
 
-  <div id="messages" style="height:70%;overflow:auto"></div>
+<header class="chat-header">
+  <span onclick="goBack()">←</span>
+  <div id="chatUser"></div>
+  <span>⋮</span>
+</header>
 
-  <div style="display:flex;gap:10px">
-    <input id="msg" placeholder="Type message">
-    <button onclick="sendMsg()">➤</button>
-  </div>
+<div id="messages" class="messages"></div>
+
+<div class="input-bar">
+  <input id="msgInput" placeholder="Type a message">
+  <button onclick="sendMsg()">➤</button>
 </div>
 
 </body>
