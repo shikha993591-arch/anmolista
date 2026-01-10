@@ -1,81 +1,40 @@
-* { box-sizing: border-box; font-family: Arial; }
-
-.login-bg {
+body{margin:0;font-family:sans-serif}
+.login-bg{
   height:100vh;
-  background: linear-gradient(45deg,#833ab4,#fd1d1d,#fcb045);
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  background:linear-gradient(45deg,#ff004f,#ff8a00);
+  display:flex;justify-content:center;align-items:center;
 }
-
-.login-card {
-  background:#111;
+.login-box{
+  background:black;
   padding:30px;
   border-radius:20px;
-  width:90%;
-  max-width:400px;
-  color:white;
+  width:300px;
   text-align:center;
 }
-
-.login-card input, button {
+.login-box h1{color:white}
+.login-box input,button{
   width:100%;
   padding:14px;
   margin:10px 0;
-  border-radius:10px;
+  border-radius:12px;
   border:none;
-  font-size:16px;
 }
+button{background:#0095f6;color:white}
 
-button { background:#0095f6; color:white; }
+.dark{background:#0b141a;color:white;height:100vh}
 
-.link { color:#0095f6; cursor:pointer }
+.top-bar{padding:15px;background:#202c33}
+.top-bar input{width:100%;padding:12px;border-radius:10px;border:none}
 
-.top-bar {
-  padding:15px;
-  background:#111;
-  color:white;
-}
+.chat-list{padding:10px}
+.chat-item{display:flex;gap:10px;padding:12px;border-bottom:1px solid #222}
+.avatar{width:45px;height:45px;background:#555;border-radius:50%}
 
-#chatList div {
-  padding:15px;
-  border-bottom:1px solid #333;
-  color:white;
-}
+.chat-header{padding:15px;background:#202c33}
+.messages{padding:15px;height:70vh;overflow:auto}
+.me{background:#005c4b;padding:10px;border-radius:12px;margin:8px 0;max-width:70%;margin-left:auto}
+.other{background:#262d31;padding:10px;border-radius:12px;margin:8px 0;max-width:70%}
 
-.chat-bg { background:#0b141a; height:100vh; }
-
-.chat-header {
-  padding:15px;
-  background:#202c33;
-  color:white;
-  display:flex;
-  gap:10px;
-}
-
-#messages {
-  padding:15px;
-  height:75vh;
-  overflow-y:auto;
-}
-
-.msg {
-  max-width:75%;
-  padding:12px;
-  margin:8px;
-  border-radius:15px;
-}
-
-.me { background:#005c4b; margin-left:auto; color:white }
-.other { background:#202c33; color:white }
-
-.chat-input {
-  display:flex;
-  padding:10px;
-}
-
-.chat-input input {
-  flex:1;
-  padding:12px;
-  border-radius:20px;
-}
+.input-bar{display:flex;padding:10px;background:#202c33}
+.input-bar input{flex:1;padding:12px;border-radius:20px;border:none}
+.input-bar button{margin-left:10px;padding:12px;border-radius:50%;border:none;background:#25d366;color:white}
