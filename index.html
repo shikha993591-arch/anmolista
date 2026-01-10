@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>Anmolista</title>
-<link rel="stylesheet" href="style.css">
+  <title>Anmolista • Login</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body class="login-bg">
 
 <div class="login-card">
   <h1>Anmolista</h1>
+
   <input id="username" placeholder="Username or Email">
-  <input type="password" placeholder="Password">
+  <input id="password" type="password" placeholder="Password">
+
   <button onclick="login()">Log In</button>
-  <p class="muted">Temporary login – backend later</p>
+  <p class="link" onclick="signup()">Create new account</p>
+
+  <small>Temporary login – backend later</small>
 </div>
 
 <script src="app.js"></script>
