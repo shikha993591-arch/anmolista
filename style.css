@@ -1,162 +1,31 @@
-* {
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
+*{box-sizing:border-box;font-family:Inter,Arial;}
+body{margin:0;background:#050b07;color:#fff}
 
-body {
-  margin: 0;
+.auth-body{display:flex;justify-content:center;align-items:center;height:100vh}
+.auth-card{
+  width:90%;max-width:380px;
+  background:rgba(10,30,20,.9);
+  padding:24px;border-radius:20px;
 }
+.brand{text-align:center;color:#10b981;font-size:32px}
+.auth-card input{width:100%;padding:14px;margin:8px 0;border-radius:14px;border:none}
+.auth-card button{width:100%;padding:14px;border:none;border-radius:16px;background:#10b981;color:#000;font-size:16px}
+.auth-card .outline{background:transparent;border:1px solid #10b981;color:#10b981}
+.disclaimer{font-size:12px;text-align:center;color:#aaa;margin-top:10px}
 
-/* ---------- AUTH ---------- */
-.auth-bg {
-  background: radial-gradient(circle at top, #064e3b, #020617);
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+.top-bar{display:flex;justify-content:space-between;padding:16px;background:#0a1a12}
+.search-wrap{display:flex;padding:10px}
+.search-wrap input{flex:1;padding:14px;border-radius:14px}
+.search-wrap button{margin-left:8px;padding:14px;border-radius:14px;background:#10b981}
+.chat-list{padding:10px}
+.chat-row{padding:18px;border-bottom:1px solid #222;font-size:18px}
 
-.auth-card {
-  width: 90%;
-  max-width: 380px;
-  background: rgba(5, 20, 15, 0.9);
-  border-radius: 20px;
-  padding: 24px;
-  text-align: center;
-}
-
-.logo {
-  color: #34d399;
-  font-size: 36px;
-  margin-bottom: 20px;
-}
-
-.auth-card input {
-  width: 100%;
-  padding: 14px;
-  margin: 10px 0;
-  border-radius: 12px;
-  border: none;
-  font-size: 16px;
-}
-
-.primary-btn {
-  width: 100%;
-  padding: 14px;
-  background: linear-gradient(90deg,#10b981,#34d399);
-  border: none;
-  border-radius: 14px;
-  font-size: 18px;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-.secondary-btn {
-  margin-top: 12px;
-  background: transparent;
-  border: 1px solid #34d399;
-  color: #34d399;
-  padding: 12px;
-  border-radius: 14px;
-  width: 100%;
-}
-
-.disclaimer {
-  font-size: 12px;
-  color: #9ca3af;
-  margin-top: 16px;
-}
-
-/* ---------- HOME ---------- */
-.app-bg {
-  background: #020617;
-  color: white;
-  height: 100vh;
-}
-
-.top-bar {
-  padding: 16px;
-  background: #020617;
-  position: sticky;
-  top: 0;
-}
-
-.top-bar input {
-  width: 100%;
-  padding: 12px;
-  border-radius: 12px;
-  border: none;
-}
-
-.chat-row {
-  display: flex;
-  padding: 14px;
-  border-bottom: 1px solid #022c22;
-  cursor: pointer;
-}
-
-.avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: #10b981;
-  margin-right: 12px;
-}
-
-/* ---------- CHAT ---------- */
-.chat-bg {
-  background: #020617;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.chat-header {
-  padding: 16px;
-  background: #020617;
-  border-bottom: 1px solid #022c22;
-}
-
-.messages {
-  flex: 1;
-  padding: 12px;
-  overflow-y: auto;
-}
-
-.sent {
-  align-self: flex-end;
-  background: #10b981;
-  color: black;
-  padding: 10px 14px;
-  border-radius: 18px;
-  margin: 6px 0;
-}
-
-.received {
-  align-self: flex-start;
-  background: #1f2933;
-  padding: 10px 14px;
-  border-radius: 18px;
-  margin: 6px 0;
-}
-
-.input-bar {
-  display: flex;
-  padding: 12px;
-  border-top: 1px solid #022c22;
-}
-
-.input-bar input {
-  flex: 1;
-  padding: 12px;
-  border-radius: 20px;
-  border: none;
-}
-
-.input-bar button {
-  margin-left: 10px;
-  padding: 12px 18px;
-  border-radius: 50%;
-  border: none;
-  background: #10b981;
-}
+.chat-body{display:flex;flex-direction:column;height:100vh}
+.chat-header{padding:16px;background:#0a1a12;display:flex;gap:10px}
+.messages{flex:1;padding:12px;overflow-y:auto}
+.bubble{max-width:70%;padding:12px;margin:6px 0;border-radius:14px;background:#1f2933}
+.bubble.me{margin-left:auto;background:#10b981;color:#000}
+.input-box{display:flex;padding:10px}
+.input-box input{flex:1;padding:14px;border-radius:20px}
+.input-box button{margin-left:8px;padding:14px 18px;border-radius:50%;background:#10b981}
+.bottom-nav{display:flex;justify-content:space-around;padding:10px;background:#0a1a12}
