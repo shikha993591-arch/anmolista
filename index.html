@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Anmolista • Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="login-body">
 
-<div class="login-card glass">
-
+<div class="login-card">
   <h1 class="logo">Anmolista</h1>
 
   <input id="email" type="email" placeholder="Email address">
@@ -18,17 +18,14 @@
 
   <button onclick="signup()">Sign Up</button>
 
-  <button class="outline" onclick="login()">
-    Already have an account? Log In
-  </button>
+  <div class="alt-btn" onclick="login()">Already have an account? Log In</div>
 
   <p class="disclaimer">
     By continuing, you agree that this is a demo platform.<br>
-    © 2026 <span>Anmol Mishra</span> — All rights reserved.
+    © 2026 <b>Anmol Mishra</b> — All rights reserved.
   </p>
-
 </div>
 
-<script type="module" src="app.js"></script>
+<script src="auth.js"></script>
 </body>
 </html>
