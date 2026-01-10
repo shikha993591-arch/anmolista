@@ -1,73 +1,33 @@
-const me = localStorage.getItem("currentUser");
-if (!me) location.href = "index.html";
+const db=firebase.firestore();
+const me=localStorage.getItem("username");
+const other=localStorage.getItem("chatUser");
+document.getElementById("chatWith").innerText=other;
 
-if (document.getElementById("me")) {
-  document.getElementById("me").innerText = me;
-  loadChats();
-}
+const chatId=[me,other].sort().join("_");
 
-function startChat() {
-  const u = document.getElementById("searchUser").value.trim();
-  if (!u || u === me) return alert("Invalid user");
-
-  localStorage.setItem("chatWith", u);
-  location.href = "chat.html";
-}
-
-function loadChats() {
-  const users = JSON.parse(localStorage.getItem("users") || "{}");
-  const list = document.getElementById("chatList");
-  list.innerHTML = "";
-
-  Object.keys(users).forEach(u => {
-    if (u !== me) {
-      const div = document.createElement("div");
-      div.className = "chat-row";
-      div.innerText = u;
-      div.onclick = () => {
-        localStorage.setItem("chatWith", u);
-        location.href = "chat.html";
-      };
-      list.appendChild(div);
-    }
+db.collection("chats").doc(chatId)
+.collection("messages").orderBy("time")
+.onSnapshot(snap=>{
+  const box=document.getElementById("messages");
+  box.innerHTML="";
+  snap.forEach(d=>{
+    const m=d.data();
+    box.innerHTML+=`
+      <div style="margin:8px;
+      text-align:${m.from===me?'right':'left'};
+      color:white">
+      <span style="background:#10b98122;
+      padding:8px;border-radius:10px">${m.text}</span>
+      </div>`;
   });
-}
+});
 
-if (document.getElementById("chatWith")) {
-  document.getElementById("chatWith").innerText = localStorage.getItem("chatWith");
-  render();
-}
-
-function send() {
-  const text = document.getElementById("msg").value;
-  if (!text) return;
-
-  const key = me + "_" + localStorage.getItem("chatWith");
-  let msgs = JSON.parse(localStorage.getItem(key) || "[]");
-  msgs.push({ from: me, text });
-  localStorage.setItem(key, JSON.stringify(msgs));
-  document.getElementById("msg").value = "";
-  render();
-}
-
-function render() {
-  const box = document.getElementById("messages");
-  const key = me + "_" + localStorage.getItem("chatWith");
-  let msgs = JSON.parse(localStorage.getItem(key) || "[]");
-
-  box.innerHTML = "";
-  msgs.forEach(m => {
-    const d = document.createElement("div");
-    d.className = m.from === me ? "bubble me" : "bubble";
-    d.innerText = m.text;
-    box.appendChild(d);
+function sendMsg(){
+  const t=document.getElementById("msg");
+  if(!t.value)return;
+  db.collection("chats").doc(chatId)
+  .collection("messages").add({
+    from:me,text:t.value,time:Date.now()
   });
-}
-
-function back() {
-  location.href = "home.html";
-}
-function logout() {
-  localStorage.clear();
-  location.href = "index.html";
+  t.value="";
 }
