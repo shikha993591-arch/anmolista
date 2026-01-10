@@ -3,181 +3,160 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/* LOGIN */
-.login-body {
-  background: radial-gradient(circle at top, #064e3b, #050b07);
-  min-height: 100vh;
+body {
+  margin: 0;
+}
+
+/* ---------- AUTH ---------- */
+.auth-bg {
+  background: radial-gradient(circle at top, #064e3b, #020617);
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.login-card {
-  background: rgba(0,0,0,0.65);
-  padding: 28px;
-  border-radius: 22px;
-  width: 92%;
+.auth-card {
+  width: 90%;
   max-width: 380px;
-  box-shadow: 0 0 40px #10b981;
+  background: rgba(5, 20, 15, 0.9);
+  border-radius: 20px;
+  padding: 24px;
+  text-align: center;
 }
 
 .logo {
-  text-align: center;
-  color: #10b981;
-  font-size: 32px;
+  color: #34d399;
+  font-size: 36px;
   margin-bottom: 20px;
 }
 
-.login-card input {
+.auth-card input {
   width: 100%;
   padding: 14px;
-  border-radius: 14px;
+  margin: 10px 0;
+  border-radius: 12px;
   border: none;
-  margin-bottom: 12px;
+  font-size: 16px;
 }
 
-.login-card button {
+.primary-btn {
   width: 100%;
   padding: 14px;
-  border-radius: 14px;
-  border: none;
   background: linear-gradient(90deg,#10b981,#34d399);
+  border: none;
+  border-radius: 14px;
   font-size: 18px;
   font-weight: bold;
+  margin-top: 10px;
 }
 
-.alt-btn {
+.secondary-btn {
   margin-top: 12px;
+  background: transparent;
+  border: 1px solid #34d399;
+  color: #34d399;
   padding: 12px;
   border-radius: 14px;
-  border: 1px solid #10b981;
-  text-align: center;
-  color: #10b981;
+  width: 100%;
 }
 
 .disclaimer {
-  text-align: center;
   font-size: 12px;
   color: #9ca3af;
   margin-top: 16px;
 }
 
-/* DASHBOARD */
-.app-body {
-  background: #050b07;
+/* ---------- HOME ---------- */
+.app-bg {
+  background: #020617;
   color: white;
-  min-height: 100vh;
+  height: 100vh;
 }
 
 .top-bar {
-  display: flex;
-  justify-content: space-between;
   padding: 16px;
-  backdrop-filter: blur(12px);
-  background: rgba(0,0,0,0.6);
+  background: #020617;
+  position: sticky;
+  top: 0;
 }
 
-.avatar {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  background: #10b981;
-}
-
-.search-box {
-  padding: 12px;
-}
-
-.search-box input {
+.top-bar input {
   width: 100%;
-  padding: 14px;
-  border-radius: 14px;
+  padding: 12px;
+  border-radius: 12px;
   border: none;
-}
-
-/* CHAT LIST */
-.chat-list {
-  padding: 8px;
 }
 
 .chat-row {
   display: flex;
-  align-items: center;
   padding: 14px;
-  border-bottom: 1px solid #064e3b;
+  border-bottom: 1px solid #022c22;
+  cursor: pointer;
 }
 
-.chat-info {
-  flex: 1;
-  margin-left: 12px;
-}
-
-.chat-info p {
-  font-size: 14px;
-  color: #9ca3af;
-}
-
-.time {
-  font-size: 12px;
-  color: #6ee7b7;
-}
-
-.fab {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 58px;
-  height: 58px;
+.avatar {
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: #10b981;
-  border: none;
-  font-size: 30px;
+  margin-right: 12px;
 }
 
-/* CHAT */
-.chat-body {
-  background: #050b07;
+/* ---------- CHAT ---------- */
+.chat-bg {
+  background: #020617;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  height: 100vh;
 }
 
 .chat-header {
   padding: 16px;
-  background: rgba(0,0,0,0.6);
+  background: #020617;
+  border-bottom: 1px solid #022c22;
 }
 
 .messages {
   flex: 1;
-  padding: 16px;
-}
-
-.msg {
-  max-width: 70%;
   padding: 12px;
-  margin-bottom: 10px;
-  border-radius: 14px;
+  overflow-y: auto;
 }
 
-.recv { background: #1f2937; }
-.send { background: #10b981; margin-left: auto; }
-
-.chat-input {
-  display: flex;
-  padding: 10px;
-}
-
-.chat-input input {
-  flex: 1;
-  padding: 14px;
-  border-radius: 14px;
-  border: none;
-}
-
-.chat-input button {
-  margin-left: 10px;
-  padding: 14px;
-  border-radius: 50%;
+.sent {
+  align-self: flex-end;
   background: #10b981;
+  color: black;
+  padding: 10px 14px;
+  border-radius: 18px;
+  margin: 6px 0;
+}
+
+.received {
+  align-self: flex-start;
+  background: #1f2933;
+  padding: 10px 14px;
+  border-radius: 18px;
+  margin: 6px 0;
+}
+
+.input-bar {
+  display: flex;
+  padding: 12px;
+  border-top: 1px solid #022c22;
+}
+
+.input-bar input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 20px;
   border: none;
+}
+
+.input-bar button {
+  margin-left: 10px;
+  padding: 12px 18px;
+  border-radius: 50%;
+  border: none;
+  background: #10b981;
 }
