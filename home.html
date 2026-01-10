@@ -3,39 +3,31 @@
 <head>
 <title>Anmolista • Chats</title>
 <link rel="stylesheet" href="style.css">
+<script defer src="chat.js"></script>
 </head>
-<body class="bg">
 
-<div class="login-card">
-  <h2 style="color:#34d399">Anmolista</h2>
-  <p style="color:#aaa">Connect with your buddies</p>
+<body class="home-body">
 
-  <div style="display:flex;gap:10px">
-    <input id="searchUser" placeholder="Search username">
-    <button onclick="openChat()">Search</button>
+<header>
+  <div>
+    <h2>Anmolista</h2>
+    <span>Connect with your buddies</span>
   </div>
+  <div id="myUser"></div>
+</header>
 
-  <div id="chatList" style="margin-top:20px;color:white"></div>
-
-  <div style="display:flex;justify-content:space-around;margin-top:25px">
-    <button>Chats</button>
-    <button>Friends</button>
-    <button onclick="logout()">Me</button>
-  </div>
+<div class="search-box">
+  <input id="searchUser" placeholder="Search username">
+  <button onclick="startChat()">Search</button>
 </div>
 
-<script>
-function openChat(){
-  const u=document.getElementById("searchUser").value;
-  if(!u)return;
-  localStorage.setItem("chatUser",u);
-  window.location="chat.html";
-}
-function logout(){
-  firebase.auth().signOut();
-  window.location="index.html";
-}
-</script>
+<div id="chatList" class="chat-list"></div>
+
+<nav class="bottom-nav">
+  <span>🏠 Chats</span>
+  <span>👥 Friends</span>
+  <span onclick="logout()">⚙️ Me</span>
+</nav>
 
 </body>
 </html>
