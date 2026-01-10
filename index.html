@@ -1,25 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Anmolista</title>
+  <title>Anmolista • Login</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="login-bg">
+<body class="login-body">
 
 <div class="login-box">
   <h1>Anmolista</h1>
-  <input id="user" placeholder="Username">
-  <button onclick="login()">Log In</button>
+
+  <input id="username" placeholder="Username or Email">
+  <input type="password" placeholder="Password">
+
+  <button onclick="tempLogin()">Log In</button>
+
+  <p class="small">Temporary login – backend later</p>
 </div>
 
-<script>
-function login(){
-  const u = document.getElementById("user").value.trim();
-  if(!u){ alert("Enter username"); return; }
-  localStorage.setItem("user", u);
-  window.location.href="home.html";
-}
-</script>
-
+<script src="app.js"></script>
 </body>
 </html>
