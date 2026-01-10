@@ -1,80 +1,81 @@
-*{box-sizing:border-box;font-family:system-ui}
-body{margin:0}
+* { box-sizing: border-box; font-family: Arial; }
 
-/* LOGIN */
-.login-bg{
-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045)
-}
-.login-card{
-background:#111;
-color:white;
-width:90%;
-max-width:340px;
-padding:30px;
-border-radius:16px;
-text-align:center
-}
-.login-card input,button{
-width:100%;
-padding:14px;
-margin-top:12px;
-border:none;
-border-radius:10px
-}
-.login-card button{background:#0095f6;color:white}
-
-/* APP */
-.app-bg{background:#0b141a;color:white;height:100vh}
-.top-bar{padding:14px;background:#202c33;font-size:18px}
-
-/* CHAT LIST */
-.chat-list .chat{
-padding:15px;
-border-bottom:1px solid #222
+.login-bg {
+  height:100vh;
+  background: linear-gradient(45deg,#833ab4,#fd1d1d,#fcb045);
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
-/* SEARCH */
-.search-box{display:flex;padding:10px}
-.search-box input{flex:1;padding:12px;border-radius:20px;border:none}
-.search-box button{margin-left:8px;border:none;border-radius:20px;padding:12px}
-
-/* CHAT */
-.chat-bg{background:#0b141a;height:100vh;display:flex;flex-direction:column}
-.chat-header{background:#202c33;padding:12px;display:flex;gap:10px}
-.messages{flex:1;padding:15px}
-.bubble{
-padding:12px;
-margin-bottom:8px;
-border-radius:16px;
-max-width:70%
+.login-card {
+  background:#111;
+  padding:30px;
+  border-radius:20px;
+  width:90%;
+  max-width:400px;
+  color:white;
+  text-align:center;
 }
-.me{background:#005c4b;margin-left:auto}
-.other{background:#202c33}
-.input-bar{display:flex;padding:10px;background:#202c33}
-.input-bar input{flex:1;padding:12px;border-radius:20px;border:none}
 
-/* PROFILE */
-.profile{text-align:center;padding:20px}
-.profile img{width:100px;border-radius:50%}
+.login-card input, button {
+  width:100%;
+  padding:14px;
+  margin:10px 0;
+  border-radius:10px;
+  border:none;
+  font-size:16px;
+}
 
-/* TABS */
-.bottom-tabs{
-position:fixed;
-bottom:0;
-width:100%;
-display:flex;
-background:#111
+button { background:#0095f6; color:white; }
+
+.link { color:#0095f6; cursor:pointer }
+
+.top-bar {
+  padding:15px;
+  background:#111;
+  color:white;
 }
-.bottom-tabs button{
-flex:1;
-padding:12px;
-border:none;
-background:none;
-color:white;
-font-size:18px
+
+#chatList div {
+  padding:15px;
+  border-bottom:1px solid #333;
+  color:white;
 }
-.bottom-tabs .active{color:#25d366}
+
+.chat-bg { background:#0b141a; height:100vh; }
+
+.chat-header {
+  padding:15px;
+  background:#202c33;
+  color:white;
+  display:flex;
+  gap:10px;
+}
+
+#messages {
+  padding:15px;
+  height:75vh;
+  overflow-y:auto;
+}
+
+.msg {
+  max-width:75%;
+  padding:12px;
+  margin:8px;
+  border-radius:15px;
+}
+
+.me { background:#005c4b; margin-left:auto; color:white }
+.other { background:#202c33; color:white }
+
+.chat-input {
+  display:flex;
+  padding:10px;
+}
+
+.chat-input input {
+  flex:1;
+  padding:12px;
+  border-radius:20px;
+}
