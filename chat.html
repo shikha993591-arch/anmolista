@@ -1,25 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Chat</title>
-<link rel="stylesheet" href="style.css">
+  <title>Chat</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body class="chat-bg">
 
 <div class="chat-header">
-  <button onclick="back()">←</button>
-  <span id="chatName"></span>
+  <button onclick="goBack()">←</button>
+  <span id="chatWith"></span>
 </div>
 
-<div class="messages" id="messages">
-  <div class="bubble other">Hi 👋</div>
-  <div class="bubble me">Hello!</div>
-</div>
+<div id="messages"></div>
 
-<div class="input-bar">
-  <input id="msg" placeholder="Message">
-  <button onclick="send()">➤</button>
+<div class="chat-input">
+  <input id="msg" placeholder="Type a message">
+  <button onclick="sendMsg()">➤</button>
 </div>
 
 <script src="app.js"></script>
