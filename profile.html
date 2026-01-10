@@ -1,27 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Set Profile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Profile</title>
 <link rel="stylesheet" href="style.css">
 </head>
-<body class="auth-bg">
+<body class="app-bg">
 
-<div class="auth-card">
-  <h2>Set up your profile</h2>
+<div class="top-bar">Profile</div>
 
-  <input id="username" placeholder="Username (unique)">
-  <input id="name" placeholder="Your name">
-  <textarea id="bio" placeholder="Bio"></textarea>
-
-  <button onclick="saveProfile()">Continue</button>
-  <p id="msg"></p>
+<div class="profile">
+  <img src="https://i.pravatar.cc/150">
+  <h2 id="me"></h2>
+  <p>Bio goes here</p>
 </div>
 
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<div class="bottom-tabs">
+  <button onclick="go('home.html')">💬</button>
+  <button onclick="go('search.html')">🔍</button>
+  <button class="active">👤</button>
+</div>
+
 <script src="app.js"></script>
 </body>
 </html>
