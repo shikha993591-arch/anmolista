@@ -1,24 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Anmolista Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anmolista Login</title>
+<style>
+body{
+  margin:0;
+  font-family:system-ui;
+  background:linear-gradient(135deg,#050b07,#0b1f14);
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+.card{
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(20px);
+  padding:30px;
+  border-radius:20px;
+  width:90%;
+  max-width:400px;
+}
+input,button{
+  width:100%;
+  padding:15px;
+  margin-top:12px;
+  border:none;
+  border-radius:12px;
+  font-size:16px;
+}
+button{
+  background:#10b981;
+  color:black;
+  font-weight:bold;
+}
+</style>
 </head>
+<body>
 
-<body class="login-body">
-
-<div class="login-box">
-  <h1>Anmolista</h1>
-
+<div class="card">
+  <h1 style="text-align:center;color:#34d399">Anmolista</h1>
+  <input id="email" placeholder="Email">
   <input id="username" placeholder="Username">
-  <button onclick="login()">Log In</button>
-
-  <p style="color:#aaa;text-align:center;margin-top:12px">
-    Temporary login (backend later)
-  </p>
+  <input id="password" type="password" placeholder="Password">
+  <button onclick="login()">Continue</button>
+  <p id="msg"></p>
 </div>
 
-<script src="app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
+const firebaseConfig={
+  apiKey:"AIzaSyBpF3Q1ESL76ywrp2_OVOoOJiFOv322z5M",
+  authDomain:"anmolista.firebaseapp.com",
+  projectId:"anmolista"
+};
+firebase.initializeApp(firebaseConfig);
+const auth=firebase.auth();
+const db=firebase.firestore();
+
+function login(){
+  const email=emailEl.value=email.value;
+  const pass=password.value;
+  const user=username.value.toLowerCase();
+
+  auth.signInWithEmailAndPassword(email,pass)
+  .catch(()=>auth.createUserWithEmailAndPassword(email,pass))
+  .then(res=>{
+    db.collection("users").doc(res.user.uid).set({
+      username:user
+    });
+    localStorage.uid=res.user.uid;
+    localStorage.username=user;
+    location.href="home.html";
+  })
+  .catch(e=>msg.innerText=e.message);
+}
+</script>
+
 </body>
 </html>
