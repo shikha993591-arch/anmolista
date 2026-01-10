@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Anmolista • Login</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anmolista • Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
+<body class="auth-body">
 
-<body class="login-body">
+  <div class="auth-card">
+    <h1 class="logo">Anmolista</h1>
 
-<div class="login-card glass">
+    <input id="email" type="email" placeholder="Email address" />
+    <input id="username" type="text" placeholder="Username" />
+    <input id="password" type="password" placeholder="Password" />
 
-  <h1 class="logo">Anmolista</h1>
+    <button onclick="signup()" class="primary-btn">Sign Up</button>
 
-  <input id="email" type="email" placeholder="Email address">
-  <input id="username" type="text" placeholder="Username">
-  <input id="password" type="password" placeholder="Password">
+    <button onclick="login()" class="secondary-btn">
+      Already have an account? Log In
+    </button>
 
-  <button onclick="signup()">Sign Up</button>
+    <p class="disclaimer">
+      By continuing, you agree that this is a demo platform.<br/>
+      © 2026 <b>Anmol Mishra</b> — All rights reserved.
+    </p>
+  </div>
 
-  <button class="outline" onclick="login()">
-    Already have an account? Log In
-  </button>
-
-  <p class="disclaimer">
-    By continuing, you agree that this is a demo platform.<br>
-    © 2026 <span>Anmol Mishra</span> — All rights reserved.
-  </p>
-
-</div>
-
-<script type="module" src="app.js"></script>
+  <script src="auth.js"></script>
 </body>
 </html>
