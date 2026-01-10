@@ -2,16 +2,18 @@
 <html>
 <head>
   <title>Chat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="chat-body">
+
+<body>
 
 <div class="chat-header">
-  <button onclick="goBack()">←</button>
-  <span id="chatUser"></span>
+  <span onclick="goBack()">←</span>
+  <span id="chatUser" style="margin-left:12px"></span>
 </div>
 
-<div id="messages" class="messages"></div>
+<div class="messages" id="messages"></div>
 
 <div class="chat-input">
   <input id="msg" placeholder="Type a message">
