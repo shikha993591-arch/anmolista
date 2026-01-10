@@ -1,21 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>Chats</title>
-<link rel="stylesheet" href="style.css">
+  <title>Anmolista Chats</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="app-bg">
+<body>
 
-<div class="top-bar">Chats</div>
-
-<div class="chat-list" id="chatList"></div>
-
-<div class="bottom-tabs">
-  <button class="active">💬</button>
-  <button onclick="go('search.html')">🔍</button>
-  <button onclick="go('profile.html')">👤</button>
+<div class="top-bar">
+  <h2>Anmolista</h2>
+  <input id="searchUser" placeholder="Search username">
+  <button onclick="searchUser()">Search</button>
 </div>
+
+<div id="chatList"></div>
 
 <script src="app.js"></script>
 </body>
