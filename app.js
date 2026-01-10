@@ -1,47 +1,37 @@
-function login(){
-  const u=document.getElementById("username").value;
-  if(!u) return alert("Enter anything");
-  localStorage.me=u;
-  location='home.html';
+function login() {
+  const u = document.getElementById("username").value;
+  if(!u) return alert("Enter username");
+  localStorage.setItem("user", u);
+  location.href = "home.html";
 }
 
-function go(p){location=p}
-function back(){history.back()}
-
-const demoUsers=["anmol","rahul","sneha","neha"];
-
-if(document.getElementById("chatList")){
-  chatList.innerHTML=demoUsers.map(u=>`
-    <div class="chat" onclick="openChat('${u}')">
-      <b>${u}</b><br><small>Tap to chat</small>
-    </div>
-  `).join("");
+function signup() {
+  login();
 }
 
-function openChat(u){
-  localStorage.chat=u;
-  location='chat.html';
+function searchUser() {
+  const u = document.getElementById("searchUser").value;
+  if(!u) return;
+  localStorage.setItem("chatWith", u);
+  location.href = "chat.html";
 }
 
-if(document.getElementById("chatName")){
-  chatName.innerText=localStorage.chat;
+function goBack() {
+  location.href = "home.html";
 }
 
-function send(){
-  const t=msg.value;
-  if(!t) return;
-  messages.innerHTML+=`<div class="bubble me">${t}</div>`;
-  msg.value="";
+if(document.getElementById("chatWith")) {
+  document.getElementById("chatWith").innerText =
+    localStorage.getItem("chatWith");
 }
 
-if(document.getElementById("me")){
-  me.innerText=localStorage.me;
-}
+function sendMsg() {
+  const msg = document.getElementById("msg").value;
+  if(!msg) return;
 
-function searchUser(){
-  results.innerHTML=demoUsers
-    .filter(u=>u.includes(searchInput.value))
-    .map(u=>`<div class="chat" onclick="openChat('${u}')">${u}</div>`)
-    .join("");
+  const div = document.createElement("div");
+  div.className = "msg me";
+  div.innerText = msg;
+  document.getElementById("messages").appendChild(div);
+  document.getElementById("msg").value="";
 }
-
