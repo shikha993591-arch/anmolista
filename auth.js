@@ -1,52 +1,34 @@
-function signup() {
-  const email = emailInput();
-  const username = usernameInput();
-  const password = passwordInput();
+const firebaseConfig = {
+  apiKey: "AIzaSyBpF3Q1ESL76ywrp2_OVOoOJiFOv322z5M",
+  authDomain: "anmolista.firebaseapp.com",
+  projectId: "anmolista",
+};
 
-  if (!email || !username || !password) {
-    alert("Fill all fields");
-    return;
-  }
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 
-  let users = JSON.parse(localStorage.getItem("users") || "{}");
+function signup(){
+  const email=document.getElementById("email").value;
+  const pass=document.getElementById("password").value;
+  const username=document.getElementById("username").value;
 
-  if (users[username]) {
-    alert("Username already exists");
-    return;
-  }
+  if(!email||!pass||!username) return alert("Fill all fields");
 
-  users[username] = { email, password };
-  localStorage.setItem("users", JSON.stringify(users));
-
-  localStorage.setItem("currentUser", username);
-  location.href = "home.html";
+  auth.createUserWithEmailAndPassword(email,pass)
+  .then(res=>{
+    localStorage.setItem("username",username);
+    window.location="home.html";
+  })
+  .catch(e=>alert(e.message));
 }
 
-function login() {
-  const email = emailInput();
-  const password = passwordInput();
+function login(){
+  const email=document.getElementById("email").value;
+  const pass=document.getElementById("password").value;
 
-  let users = JSON.parse(localStorage.getItem("users") || "{}");
-
-  const user = Object.entries(users).find(
-    ([_, u]) => u.email === email && u.password === password
-  );
-
-  if (!user) {
-    alert("Invalid login");
-    return;
-  }
-
-  localStorage.setItem("currentUser", user[0]);
-  location.href = "home.html";
-}
-
-function emailInput() {
-  return document.getElementById("email").value.trim();
-}
-function usernameInput() {
-  return document.getElementById("username").value.trim();
-}
-function passwordInput() {
-  return document.getElementById("password").value.trim();
+  auth.signInWithEmailAndPassword(email,pass)
+  .then(()=>{
+    window.location="home.html";
+  })
+  .catch(e=>alert(e.message));
 }
