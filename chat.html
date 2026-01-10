@@ -1,24 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Chat</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="style.css">
+<title>Chat</title>
+<link rel="stylesheet" href="style.css">
+<script defer src="chat.js"></script>
 </head>
-<body class="chat-body">
+<body class="bg">
 
-<header class="chat-header">
-  <button onclick="back()">←</button>
-  <span id="chatWith"></span>
-</header>
+<div class="login-card" style="height:90%">
+  <h3 id="chatWith" style="color:#34d399"></h3>
 
-<div id="messages" class="messages"></div>
+  <div id="messages" style="height:70%;overflow:auto"></div>
 
-<div class="input-box">
-  <input id="msg" placeholder="Type a message">
-  <button onclick="send()">➤</button>
+  <div style="display:flex;gap:10px">
+    <input id="msg" placeholder="Type message">
+    <button onclick="sendMsg()">➤</button>
+  </div>
 </div>
 
-<script src="chat.js"></script>
 </body>
 </html>
