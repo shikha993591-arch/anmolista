@@ -1,30 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Anmolista • Chats</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="style.css">
+<title>Anmolista • Chats</title>
+<link rel="stylesheet" href="style.css">
 </head>
-<body class="home-body">
+<body class="bg">
 
-<header class="top-bar">
-  <h2>Anmolista</h2>
-  <span class="user">@<b id="me"></b></span>
-</header>
+<div class="login-card">
+  <h2 style="color:#34d399">Anmolista</h2>
+  <p style="color:#aaa">Connect with your buddies</p>
 
-<div class="search-wrap">
-  <input id="searchUser" placeholder="Search username">
-  <button onclick="startChat()">Search</button>
+  <div style="display:flex;gap:10px">
+    <input id="searchUser" placeholder="Search username">
+    <button onclick="openChat()">Search</button>
+  </div>
+
+  <div id="chatList" style="margin-top:20px;color:white"></div>
+
+  <div style="display:flex;justify-content:space-around;margin-top:25px">
+    <button>Chats</button>
+    <button>Friends</button>
+    <button onclick="logout()">Me</button>
+  </div>
 </div>
 
-<div id="chatList" class="chat-list"></div>
+<script>
+function openChat(){
+  const u=document.getElementById("searchUser").value;
+  if(!u)return;
+  localStorage.setItem("chatUser",u);
+  window.location="chat.html";
+}
+function logout(){
+  firebase.auth().signOut();
+  window.location="index.html";
+}
+</script>
 
-<nav class="bottom-nav">
-  <button>Chats</button>
-  <button>Profile</button>
-  <button onclick="logout()">Logout</button>
-</nav>
-
-<script src="chat.js"></script>
 </body>
 </html>
