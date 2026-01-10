@@ -1,25 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Chat • Anmolista</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="style.css">
+  <title>Chat • Anmolista</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
+<body class="chat-bg">
 
-<body class="chat-body">
+  <div class="chat-header">
+    <span id="chatWithName"></span>
+  </div>
 
-<header class="chat-header">
-  <span onclick="goBack()">←</span>
-  <b id="chatUser">User</b>
-</header>
+  <div id="messages" class="messages"></div>
 
-<div id="messages" class="messages"></div>
+  <div class="input-bar">
+    <input id="messageInput" placeholder="Type a message..." />
+    <button id="sendBtn">➤</button>
+  </div>
 
-<div class="chat-input">
-  <input placeholder="Type a message">
-  <button>➤</button>
-</div>
-
-<script src="app.js"></script>
+  <script src="chat.js"></script>
 </body>
 </html>
