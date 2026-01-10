@@ -1,34 +1,25 @@
-const firebaseConfig = {
-  apiKey: "AIzaSyBpF3Q1ESL76ywrp2_OVOoOJiFOv322z5M",
-  authDomain: "anmolista.firebaseapp.com",
-  projectId: "anmolista",
-};
-
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-
 function signup(){
-  const email=document.getElementById("email").value;
-  const pass=document.getElementById("password").value;
-  const username=document.getElementById("username").value;
+  const u = username.value.trim();
+  const p = password.value.trim();
+  if(!u||!p) return alert("Fill all fields");
 
-  if(!email||!pass||!username) return alert("Fill all fields");
-
-  auth.createUserWithEmailAndPassword(email,pass)
-  .then(res=>{
-    localStorage.setItem("username",username);
-    window.location="home.html";
-  })
-  .catch(e=>alert(e.message));
+  localStorage.setItem("user_"+u, p);
+  localStorage.setItem("currentUser", u);
+  location.href="home.html";
 }
 
 function login(){
-  const email=document.getElementById("email").value;
-  const pass=document.getElementById("password").value;
+  const u = email.value.trim();
+  const p = password.value.trim();
+  if(localStorage.getItem("user_"+u)===p){
+    localStorage.setItem("currentUser", u);
+    location.href="home.html";
+  } else {
+    alert("Invalid login");
+  }
+}
 
-  auth.signInWithEmailAndPassword(email,pass)
-  .then(()=>{
-    window.location="home.html";
-  })
-  .catch(e=>alert(e.message));
+function logout(){
+  localStorage.removeItem("currentUser");
+  location.href="index.html";
 }
