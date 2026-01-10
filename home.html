@@ -1,51 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Chats</title>
+  <title>Anmolista Chats</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="dark">
+<body class="home-body">
 
 <div class="top-bar">
-  <h2>Anmolista</h2>
-  <input id="search" placeholder="Search username">
+  <h2>Chats</h2>
+  <input id="searchUser" placeholder="Search username">
+  <button onclick="startChat()">Search</button>
 </div>
 
-<div class="chat-list" id="list"></div>
+<div id="chatList" class="chat-list"></div>
 
-<script src="firebase.js"></script>
-<script>
-const currentUser = localStorage.getItem("user");
-const list = document.getElementById("list");
-
-document.getElementById("search").addEventListener("keydown", e=>{
-  if(e.key==="Enter"){
-    const other = e.target.value.trim();
-    if(!other) return;
-    localStorage.setItem("chatWith", other);
-    window.location.href="chat.html";
-  }
-});
-
-// Load chat list
-db.collection("chats")
-.where("users", "array-contains", currentUser)
-.onSnapshot(snap=>{
-  list.innerHTML="";
-  snap.forEach(doc=>{
-    const data = doc.data();
-    const other = data.users.find(u=>u!==currentUser);
-    const div = document.createElement("div");
-    div.className="chat-item";
-    div.innerHTML=`<div class="avatar"></div><b>${other}</b>`;
-    div.onclick=()=>{
-      localStorage.setItem("chatWith", other);
-      window.location.href="chat.html";
-    };
-    list.appendChild(div);
-  });
-});
-</script>
-
+<script src="app.js"></script>
 </body>
 </html>
