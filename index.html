@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Anmolista • Login</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Anmolista • Login</title>
+<link rel="stylesheet" href="style.css">
+<script defer src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script defer src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script defer src="auth.js"></script>
 </head>
-<body class="auth-body">
+<body class="bg">
 
-<div class="auth-card">
-  <h1 class="brand">Anmolista</h1>
+<div class="login-card">
+  <h1 class="logo">Anmolista</h1>
 
-  <input id="email" type="text" placeholder="Email or Username">
-  <input id="username" type="text" placeholder="Username (for signup)">
+  <input id="email" placeholder="Email or Username">
+  <input id="username" placeholder="Username (for signup)">
   <input id="password" type="password" placeholder="Password">
 
   <button onclick="signup()">Sign Up</button>
@@ -24,6 +27,5 @@
   </p>
 </div>
 
-<script src="auth.js"></script>
 </body>
 </html>
